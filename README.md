@@ -52,7 +52,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
         pytorch/pytorch:0.4_cuda9_cudnn7 bash
 ```
 
-- /root/ will now be mapped to /home/fregu856 (i.e., $ cd -- takes you to the regular home folder). 
+- Inside the image, /root/ will now be mapped to /home/fregu856 (i.e., $ cd -- takes you to the regular home folder). 
 
 - To start the image:
 - - $ sudo sh start_docker_image.sh 
