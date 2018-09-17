@@ -62,7 +62,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - To stop the image when it’s running:
 - - $ sudo docker stop fregu856_GPU0
 - To exit the image without killing running code:
-- - Ctrl-P + Q
+- - Ctrl + P + Q
 - To get back into a running image:
 - - $ sudo docker attach fregu856_GPU0
 - To open more than one terminal window at the same time:
