@@ -82,4 +82,5 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 - - $ git clone https://github.com/fregu856/3DOD_thesis.git 
 
-- - Download KITTI (data_object_image_2.zip, data_object_velodyne.zip, data_object_calib.zip and data_object_label_2.zip) and place in XXXXX TODO! XXXXX.
+- - Download KITTI (data_object_image_2.zip, data_object_velodyne.zip, data_object_calib.zip and data_object_label_2.zip) ($ wget *the link*)
+- - Place XXXXXX in XXXXX (all the KITTI files in a certain file  structure)
