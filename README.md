@@ -76,3 +76,6 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - $ sudo apt-get install libopencv-dev python-opencv (python-opencv might be unnecessary)
 - - $ pip install opencv-python
 - - Commit changes to the image (otherwise, the installed packages will be removed at exit!)
+
+- Do the following outside of the docker image:
+- - $ --
