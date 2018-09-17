@@ -33,7 +33,8 @@ To train the model, I used an NC6 virtual machine on Microsoft Azure. Below I ha
 - - $ sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
 - - $ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi
 
-&&&& ADD MORE HERE! &&&&
+- Download the PyTorch 0.4 docker image:
+- - $ sudo docker pull pytorch/pytorch:0.4_cuda9_cudnn7
 
 - Create start_docker_image.sh containing:
 ```
@@ -48,7 +49,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
         -p 5584:5584 \
         --name "$NAME""$GPUIDS" \
         -v /home/fregu856:/root/ \
-        tensorflow/tensorflow:latest-gpu bash
+        pytorch/pytorch:0.4_cuda9_cudnn7 bash
 ```
 
 - /root/ will now be mapped to /home/fregu856 (i.e., $ cd -- takes you to the regular home folder). 
@@ -57,7 +58,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - $ sudo sh start_docker_image.sh 
 - To commit changes to the image:
 - - Open a new terminal window.
-- - $ sudo docker commit fregu856_GPU0 tensorflow/tensorflow:latest-gpu
+- - $ sudo docker commit fregu856_GPU0 pytorch/pytorch:0.4_cuda9_cudnn7
 - To stop the image when it’s running:
 - - $ sudo docker stop fregu856_GPU0
 - To exit the image without killing running code:
