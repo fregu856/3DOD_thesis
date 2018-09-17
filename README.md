@@ -10,7 +10,30 @@ Code will be released before the end of September.
 
 To train the model, I used an NC6 virtual machine on Microsoft Azure. Below I have listed what I needed to do in order to get started, and some things I found useful. For reference, my username was 'fregu856':
 
+- Manually allow inbound traffic on port 22, to be able to connect to the VM via SSH (like in the image in this post: https://stackoverflow.com/questions/46436762/cannot-ssh-to-azure-vm).
 
+- Install docker-ce:
+- - $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- - $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+- - $ sudo apt-get update
+- - $ sudo apt-get install -y docker-ce
+
+- Install CUDA drivers (see "Install CUDA drivers on N-series VMs" in https://docs.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup):
+- - $ CUDA_REPO_PKG=cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
+- - $ wget -O /tmp/${CUDA_REPO_PKG} http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_REPO_PKG}
+- - $ sudo dpkg -i /tmp/${CUDA_REPO_PKG}
+- - $ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+- - $ rm -f /tmp/${CUDA_REPO_PKG}
+- - $ sudo apt-get update
+- - $ sudo apt-get install cuda-drivers
+- - Reboot the VM.
+
+- Install nvidia-docker:
+- - $ wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
+- - $ sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
+- - $ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi
+
+&&&& ADD MORE HERE! &&&&
 
 - Create start_docker_image.sh containing:
 ```
