@@ -79,3 +79,5 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 - Do the following outside of the docker image:
 - - $ --
+
+- - Download KITTI (data_object_image_2.zip, data_object_velodyne.zip, data_object_calib.zip and data_object_label_2.zip) and place in XXXXX TODO! XXXXX.
