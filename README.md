@@ -6,9 +6,9 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
 ******
-## Training on Paperspace:
+## Paperspace:
 
-To train the model, you can use an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
+To train models and to run pretrained models, you can use an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
 - Install docker-ce:
 - - $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
