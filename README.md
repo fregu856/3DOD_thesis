@@ -6,11 +6,9 @@ Code will be released before the end of September.
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
 ******
-## Training on Microsoft Azure:
+## Training on Paperspace:
 
-To train the model, I used an NC6 virtual machine on Microsoft Azure. Below I have listed what I needed to do in order to get started, and some things I found useful. For reference, my username was 'fregu856':
-
-- Manually allow inbound traffic on port 22, to be able to connect to the VM via SSH (like in the image in this post: https://stackoverflow.com/questions/46436762/cannot-ssh-to-azure-vm).
+To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
 - Install docker-ce:
 - - $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
