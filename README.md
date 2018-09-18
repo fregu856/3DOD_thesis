@@ -113,3 +113,18 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/train_imgnet.py
+
+***
+
+### Pretrained moels:
+- pretrained_models/model_37_2_epoch_400.pth:
+- - Frustum-PointNet trained for 400 epochs on....
+
+- pretrained_models/model_32_2_epoch_299.pth:
+- - Frustum-PointNet trained for 299 epochs on....
+
+- pretrained_models/model_38_2_epoch_400.pth:
+- - Extended-Frustum-PointNet trained for 400 epochs on....
+
+- pretrained_models/model_10_2_epoch_400.pth:
+- - Image-Only trained for 400 epochs on....
