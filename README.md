@@ -146,7 +146,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
-- - Running this script will print:
+- Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.667806
 validation TNet loss: 0.0494426
