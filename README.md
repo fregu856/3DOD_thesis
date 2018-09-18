@@ -8,7 +8,7 @@ Code will be released before the end of September.
 ******
 ## Training on Paperspace:
 
-To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD. Below I have listed what I needed to do in order to get started, and some things I found useful.
+To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
 - Install docker-ce:
 - - $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
