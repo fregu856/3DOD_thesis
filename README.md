@@ -91,7 +91,34 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
 
 ***
+### Used datasets:
+- *KITTI train*:
+- - 3712 examples (roughly 50%) from KITTI training, see thesis for more info.
 
+- *KITTI val*:
+- - 3769 examples (roughly 50%) from KITTI training, see thesis for more info.
+
+- *KITTI train random*:
+- - 6733 examples (random 90% subset) from KITTI training.
+
+- *KITTI test*:
+- - The KITTI testing set, 7518 examples.
+
+***
+### Pretrained models:
+- pretrained_models/model_37_2_epoch_400.pth:
+- - Frustum-PointNet trained for 400 epochs on *KITTI train random*.
+
+- pretrained_models/model_32_2_epoch_299.pth:
+- - Frustum-PointNet trained for 299 epochs on *SYN train* (synthetic dataset, see the thesis for more info).
+
+- pretrained_models/model_38_2_epoch_400.pth:
+- - Extended-Frustum-PointNet trained for 400 epochs on *KITTI train random*.
+
+- pretrained_models/model_10_2_epoch_400.pth:
+- - Image-Only trained for 400 epochs on *KITTI train random*.
+
+***
 ### Train Frustum-PointNet:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
@@ -99,7 +126,6 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
 
 ***
-
 ### Train Extended-Frustum-PointNet:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
@@ -107,24 +133,16 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
 
 ***
-
 ### Train Image-Only:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/train_imgnet.py
 
+
 ***
-
-### Pretrained models:
-- pretrained_models/model_37_2_epoch_400.pth:
-- - Frustum-PointNet trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
-
-- pretrained_models/model_32_2_epoch_299.pth:
-- - Frustum-PointNet trained for 299 epochs on *SYN train* (synthetic dataset, see the thesis for more info).
-
-- pretrained_models/model_38_2_epoch_400.pth:
-- - Extended-Frustum-PointNet trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
-
-- pretrained_models/model_10_2_epoch_400.pth:
-- - Image-Only trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
+#### :
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/train_imgnet.py
