@@ -6,9 +6,9 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
 ******
-## Training on Paperspace:
+## Paperspace:
 
-To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
+To train models and to run pretrained models, you can use an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
 - Install docker-ce:
 - - $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -97,3 +97,19 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
+
+***
+
+### Train Extended-Frustum-PointNet:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
+
+***
+
+### Train Image-Only:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/train_imgnet.py
