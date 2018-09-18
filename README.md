@@ -16,7 +16,7 @@ To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspac
 - - $ sudo apt-get update
 - - $ sudo apt-get install -y docker-ce
 
-- Install CUDA drivers (see "Install CUDA drivers on N-series VMs" in https://docs.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup):
+- Install CUDA drivers:
 - - $ CUDA_REPO_PKG=cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
 - - $ wget -O /tmp/${CUDA_REPO_PKG} http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_REPO_PKG}
 - - $ sudo dpkg -i /tmp/${CUDA_REPO_PKG}
