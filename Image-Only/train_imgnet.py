@@ -1,4 +1,4 @@
-# camera-ready (if everything works)
+# camera-ready
 
 from datasets_imgnet import DatasetImgNetAugmentation, DatasetImgNetEval # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from imgnet import ImgNet
@@ -100,6 +100,7 @@ for epoch in range(num_epochs):
         labels_size = Variable(labels_size) # (shape: (batch_size, 3))
         labels_keypoints = Variable(labels_keypoints) # (shape: (batch_size, 2*8))
         labels_distance = Variable(labels_distance) # (shape: (batch_size, 1))
+        labels_distance = labels_distance.view(-1) # (shape: (batch_size, ))
 
         bbox_2d_imgs = bbox_2d_imgs.cuda()
         labels_size = labels_size.cuda()
@@ -109,7 +110,7 @@ for epoch in range(num_epochs):
         outputs = network(bbox_2d_imgs) # (shape: (batch_size, 2*8 + 3 +1 = 20))
         outputs_keypoints = outputs[:, 0:16] # (shape: (batch_size, 2*8))
         outputs_size = outputs[:, 16:19] # (shape: (batch_size, 3)
-        outputs_distance = outputs[:, 19] # (shape: (batch_size, 1)
+        outputs_distance = outputs[:, 19] # (shape: (batch_size, )
 
         ########################################################################
         # compute the size loss:
@@ -221,6 +222,7 @@ for epoch in range(num_epochs):
             labels_size = Variable(labels_size) # (shape: (batch_size, 3))
             labels_keypoints = Variable(labels_keypoints) # (shape: (batch_size, 2*8))
             labels_distance = Variable(labels_distance) # (shape: (batch_size, 1))
+            labels_distance = labels_distance.view(-1) # (shape: (batch_size, ))
 
             bbox_2d_imgs = bbox_2d_imgs.cuda()
             labels_size = labels_size.cuda()
@@ -230,7 +232,7 @@ for epoch in range(num_epochs):
             outputs = network(bbox_2d_imgs) # (shape: (batch_size, 2*8 + 3 + 1 = 20))
             outputs_keypoints = outputs[:, 0:16] # (shape: (batch_size, 2*8))
             outputs_size = outputs[:, 16:19] # (shape: (batch_size, 3)
-            outputs_distance = outputs[:, 19] # (shape: (batch_size, 1)
+            outputs_distance = outputs[:, 19] # (shape: (batch_size, )
 
             ########################################################################
             # compute the size loss:
