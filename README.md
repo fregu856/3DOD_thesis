@@ -6,7 +6,7 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
 ******
-## Paperspace:
+### Paperspace:
 
 To train models and to run pretrained models, you can use an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
@@ -91,25 +91,76 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
 
 ***
+### Used datasets:
+- *KITTI train*:
+- - 3712 examples (roughly 50%) from the KITTI training set, see thesis for more info.
 
-### Train Frustum-PointNet:
+- *KITTI val*:
+- - 3769 examples (roughly 50%) from the KITTI training set, see thesis for more info.
+
+- *KITTI train random*:
+- - 6733 examples (random 90% subset) from the KITTI training set.
+
+- *KITTI test*:
+- - The KITTI testing set, 7518 examples.
+
+***
+### Pretrained models:
+- pretrained_models/model_37_2_epoch_400.pth:
+- - Frustum-PointNet trained for 400 epochs on *KITTI train random*.
+
+- pretrained_models/model_32_2_epoch_299.pth:
+- - Frustum-PointNet trained for 299 epochs on *SYN train* (synthetic dataset, see the thesis for more info).
+
+- pretrained_models/model_38_2_epoch_400.pth:
+- - Extended-Frustum-PointNet trained for 400 epochs on *KITTI train random*.
+
+- pretrained_models/model_10_2_epoch_400.pth:
+- - Image-Only trained for 400 epochs on *KITTI train random*.
+
+***
+#### Train Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
 
 ***
-
-### Train Extended-Frustum-PointNet:
+#### Train Extended-Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
 
 ***
-
-### Train Image-Only:
+#### Train Image-Only model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/train_imgnet.py
+
+
+***
+#### Run pretrained Frustum-PointNet model on *KITTI val*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
+- - Running this script will print a number of losses/metrics:
+```
+validation loss: 0.667806
+validation TNet loss: 0.0494426
+validation InstanceSeg loss: 0.193783
+validation BboxNet loss: 0.163053
+validation BboxNet size loss: 0.0157994
+validation BboxNet center loss: 0.0187426
+validation BboxNet heading class loss: 0.096926
+validation BboxNet heading regr loss: 0.00315847
+validation heading class accuracy: 0.959445
+validation corner loss: 0.0261527
+validation accuracy: 0.921544
+validation precision: 0.887209
+validation recall: 0.949744
+validation f1: 0.917124
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
