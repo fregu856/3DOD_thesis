@@ -118,13 +118,13 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 ### Pretrained moels:
 - pretrained_models/model_37_2_epoch_400.pth:
-- - Frustum-PointNet trained for 400 epochs on....
+- - Frustum-PointNet trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
 
 - pretrained_models/model_32_2_epoch_299.pth:
-- - Frustum-PointNet trained for 299 epochs on....
+- - Frustum-PointNet trained for 299 epochs on *SYN train* (synthetic dataset, see the thesis for more info).
 
 - pretrained_models/model_38_2_epoch_400.pth:
-- - Extended-Frustum-PointNet trained for 400 epochs on....
+- - Extended-Frustum-PointNet trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
 
 - pretrained_models/model_10_2_epoch_400.pth:
-- - Image-Only trained for 400 epochs on....
+- - Image-Only trained for 400 epochs on *KITTI train random* (random 90% subset of KITTI training).
