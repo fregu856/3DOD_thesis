@@ -146,7 +146,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
-- Running this script will print a number of losses/metrics:
+- - Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.667806
 validation TNet loss: 0.0494426
@@ -163,4 +163,5 @@ validation precision: 0.887209
 validation recall: 0.949744
 validation f1: 0.917124
 ```
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, which contains TODO!
 - - TODO! TODO! What does it do?! (what is found in the file that it creates, what metrics does it compute and so on?)
