@@ -1,4 +1,4 @@
-# camera-ready (if everything works)
+# camera-ready
 
 from datasets import EvalDatasetFrustumPointNet, wrapToPi, getBinCenter # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from frustum_pointnet import FrustumPointNet
@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 batch_size = 32
 
-network = FrustumPointNet("Frustum-PointNet_eval", project_dir="/root/3DOD_thesis")
+network = FrustumPointNet("Frustum-PointNet_eval_val", project_dir="/root/3DOD_thesis")
 network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_37_2_epoch_400.pth"))
 network = network.cuda()
 
@@ -450,5 +450,5 @@ print ("validation recall: %g" % epoch_recall)
 epoch_f1 = np.mean(batch_f1s)
 print ("validation f1: %g" % epoch_f1)
 
-with open("%s/eval_dict.pkl" % network.model_dir, "wb") as file:
+with open("%s/eval_dict_val.pkl" % network.model_dir, "wb") as file:
     pickle.dump(eval_dict, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2)
