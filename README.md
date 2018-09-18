@@ -141,8 +141,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 
 ***
-#### :
+#### Run pretrained Frustum-PointNet model on *KITTI val*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
-- $ python 3DOD_thesis/Image-Only/train_imgnet.py
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
+- TODO! TODO! What does it do?! (what is found in the file that it creates and so on?)
