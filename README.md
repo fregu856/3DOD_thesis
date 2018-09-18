@@ -92,7 +92,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 ***
 
-### Train FrustumPointNet:
+### Train Frustum-PointNet:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
