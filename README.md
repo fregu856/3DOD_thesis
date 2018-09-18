@@ -89,3 +89,11 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Download KITTI tracking (data_tracking_image_2.zip, data_tracking_velodyne.zip, data_tracking_calib.zip and data_tracking_label_2.zip) ($ wget *the download link that was sent to you in an email*).
 - - Unzip all files ($ sudo apt install unzip, and then $ unzip *file name*).
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
+
+***
+
+### Train FrustumPointNet:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
