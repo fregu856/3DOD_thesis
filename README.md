@@ -93,13 +93,13 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ***
 ### Used datasets:
 - *KITTI train*:
-- - 3712 examples (roughly 50%) from KITTI training, see thesis for more info.
+- - 3712 examples (roughly 50%) from the KITTI training set, see thesis for more info.
 
 - *KITTI val*:
-- - 3769 examples (roughly 50%) from KITTI training, see thesis for more info.
+- - 3769 examples (roughly 50%) from the KITTI training set, see thesis for more info.
 
 - *KITTI train random*:
-- - 6733 examples (random 90% subset) from KITTI training.
+- - 6733 examples (random 90% subset) from the KITTI training set.
 
 - *KITTI test*:
 - - The KITTI testing set, 7518 examples.
