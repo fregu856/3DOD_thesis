@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready (if everything works)
 
 from datasets_imgnet import DatasetImgNetAugmentation, DatasetImgNetEval # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from imgnet import ImgNet
@@ -33,20 +33,20 @@ def draw_3dbbox_from_keypoints(img, keypoints):
     return img
 
 # NOTE! NOTE! change this to not overwrite all log data when you train the model:
-model_id = "10_2"
+model_id = "Image-Only_1"
 
 num_epochs = 1000
-batch_size = 32 # NOTE! NOTE
+batch_size = 8
 learning_rate = 0.001
 
-network = ImgNet(model_id, project_dir="/staging/frexgus/imgnet")
+network = ImgNet(model_id, project_dir="/root/3DOD_thesis")
 network = network.cuda()
 
-train_dataset = DatasetImgNetAugmentation(kitti_data_path="/datasets/kitti",
-                                          kitti_meta_path="/staging/frexgus/kitti/meta",
+train_dataset = DatasetImgNetAugmentation(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                          kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                           type="train")
-val_dataset = DatasetImgNetEval(kitti_data_path="/datasets/kitti",
-                                kitti_meta_path="/staging/frexgus/kitti/meta",
+val_dataset = DatasetImgNetEval(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                 type="val")
 
 num_train_batches = int(len(train_dataset)/batch_size)
@@ -57,10 +57,10 @@ print ("num_val_batches:", num_val_batches)
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=batch_size, shuffle=True,
-                                           num_workers=16)
+                                           num_workers=4)
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=batch_size, shuffle=False,
-                                         num_workers=16)
+                                         num_workers=4)
 
 regression_loss_func = nn.SmoothL1Loss()
 
@@ -116,7 +116,7 @@ for epoch in range(num_epochs):
         ########################################################################
         loss_size = regression_loss_func(outputs_size, labels_size)
 
-        loss_size_value = loss_size.data.cpu().numpy()[0]
+        loss_size_value = loss_size.data.cpu().numpy()
         batch_losses_size.append(loss_size_value)
 
         ########################################################################
@@ -124,7 +124,7 @@ for epoch in range(num_epochs):
         ########################################################################
         loss_keypoints = regression_loss_func(outputs_keypoints, labels_keypoints)
 
-        loss_keypoints_value = loss_keypoints.data.cpu().numpy()[0]
+        loss_keypoints_value = loss_keypoints.data.cpu().numpy()
         batch_losses_keypoints.append(loss_keypoints_value)
 
         ########################################################################
@@ -132,14 +132,14 @@ for epoch in range(num_epochs):
         ########################################################################
         loss_distance = regression_loss_func(outputs_distance, labels_distance)
 
-        loss_distance_value = loss_distance.data.cpu().numpy()[0]
+        loss_distance_value = loss_distance.data.cpu().numpy()
         batch_losses_distance.append(loss_distance_value)
 
         ########################################################################
         # compute the total loss:
         ########################################################################
         loss = loss_size + 10*loss_keypoints + 0.01*loss_distance
-        loss_value = loss.data.cpu().numpy()[0]
+        loss_value = loss.data.cpu().numpy()
         batch_losses.append(loss_value)
 
         ########################################################################
@@ -237,7 +237,7 @@ for epoch in range(num_epochs):
             ########################################################################
             loss_size = regression_loss_func(outputs_size, labels_size)
 
-            loss_size_value = loss_size.data.cpu().numpy()[0]
+            loss_size_value = loss_size.data.cpu().numpy()
             batch_losses_size.append(loss_size_value)
 
             ########################################################################
@@ -245,7 +245,7 @@ for epoch in range(num_epochs):
             ########################################################################
             loss_keypoints = regression_loss_func(outputs_keypoints, labels_keypoints)
 
-            loss_keypoints_value = loss_keypoints.data.cpu().numpy()[0]
+            loss_keypoints_value = loss_keypoints.data.cpu().numpy()
             batch_losses_keypoints.append(loss_keypoints_value)
 
             ########################################################################
@@ -253,14 +253,14 @@ for epoch in range(num_epochs):
             ########################################################################
             loss_distance = regression_loss_func(outputs_distance, labels_distance)
 
-            loss_distance_value = loss_distance.data.cpu().numpy()[0]
+            loss_distance_value = loss_distance.data.cpu().numpy()
             batch_losses_distance.append(loss_distance_value)
 
             ########################################################################
             # compute the total loss:
             ########################################################################
             loss = loss_size + 10*loss_keypoints + 0.01*loss_distance
-            loss_value = loss.data.cpu().numpy()[0]
+            loss_value = loss.data.cpu().numpy()
             batch_losses.append(loss_value)
 
             # if step == 1:

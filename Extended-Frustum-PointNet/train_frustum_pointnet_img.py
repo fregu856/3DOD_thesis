@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 from datasets_img import DatasetFrustumPointNetImgAugmentation, EvalDatasetFrustumPointNetImg, getBinCenters, wrapToPi # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from frustum_pointnet_img import FrustumPointNetImg
@@ -17,22 +17,22 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 # NOTE! NOTE! change this to not overwrite all log data when you train the model:
-model_id = "40_8"
+model_id = "Extended-Frustum-PointNet_1"
 
 num_epochs = 700
-batch_size = 32
+batch_size = 8
 learning_rate = 0.001
 
-network = FrustumPointNetImg(model_id, project_dir="/staging/frexgus/frustum_pointnet")
+network = FrustumPointNetImg(model_id, project_dir="/root/3DOD_thesis")
 network = network.cuda()
 
 NH = network.BboxNet_network.NH
 
-train_dataset = DatasetFrustumPointNetImgAugmentation(kitti_data_path="/datasets/kitti",
-                                                      kitti_meta_path="/staging/frexgus/kitti/meta",
+train_dataset = DatasetFrustumPointNetImgAugmentation(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                                      kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                                       type="train", NH=NH)
-val_dataset = EvalDatasetFrustumPointNetImg(kitti_data_path="/datasets/kitti",
-                                            kitti_meta_path="/staging/frexgus/kitti/meta",
+val_dataset = EvalDatasetFrustumPointNetImg(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                            kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                             type="val", NH=NH)
 
 num_train_batches = int(len(train_dataset)/batch_size)
@@ -43,10 +43,10 @@ print ("num_val_batches:", num_val_batches)
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=batch_size, shuffle=True,
-                                           num_workers=16)
+                                           num_workers=4)
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=batch_size, shuffle=False,
-                                         num_workers=16)
+                                         num_workers=4)
 
 regression_loss_func = nn.SmoothL1Loss()
 
@@ -184,7 +184,7 @@ for epoch in range(num_epochs):
         labels_InstanceSeg = labels_InstanceSeg.view(-1, 1) # (shape: (batch_size*num_points, 1))
         labels_InstanceSeg = labels_InstanceSeg[:, 0] # (shape: (batch_size*num_points, ))
         loss_InstanceSeg = F.nll_loss(outputs_InstanceSeg, labels_InstanceSeg)
-        loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()[0]
+        loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()
         batch_losses_InstanceSeg.append(loss_InstanceSeg_value)
 
         ########################################################################
@@ -204,7 +204,7 @@ for epoch in range(num_epochs):
         else:
             loss_TNet = regression_loss_func(outputs_TNet, labels_TNet)
 
-        loss_TNet_value = loss_TNet.data.cpu().numpy()[0]
+        loss_TNet_value = loss_TNet.data.cpu().numpy()
         batch_losses_TNet.append(loss_TNet_value)
 
         ########################################################################
@@ -257,19 +257,19 @@ for epoch in range(num_epochs):
             # compute the BboxNet total loss:
             loss_BboxNet = loss_BboxNet_center + loss_BboxNet_size + loss_BboxNet_heading
 
-        loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()[0]
+        loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()
         batch_losses_BboxNet.append(loss_BboxNet_value)
 
-        loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()[0]
+        loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()
         batch_losses_BboxNet_size.append(loss_BboxNet_size_value)
 
-        loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()[0]
+        loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()
         batch_losses_BboxNet_center.append(loss_BboxNet_center_value)
 
-        loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()[0]
+        loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()
         batch_losses_BboxNet_heading_class.append(loss_BboxNet_heading_class_value)
 
-        loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()[0]
+        loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()
         batch_losses_BboxNet_heading_regr.append(loss_BboxNet_heading_regr_value)
 
         ########################################################################
@@ -372,7 +372,7 @@ for epoch in range(num_epochs):
 
             loss_corner = torch.min(loss_corner_unflipped, loss_corner_flipped)
 
-        loss_corner_value = loss_corner.data.cpu().numpy()[0]
+        loss_corner_value = loss_corner.data.cpu().numpy()
         batch_losses_corner.append(loss_corner_value)
 
         ########################################################################
@@ -381,7 +381,7 @@ for epoch in range(num_epochs):
         lambda_value = 1
         gamma_value = 10
         loss = loss_InstanceSeg + lambda_value*(loss_TNet + loss_BboxNet + gamma_value*loss_corner)
-        loss_value = loss.data.cpu().numpy()[0]
+        loss_value = loss.data.cpu().numpy()
         batch_losses.append(loss_value)
 
         ########################################################################
@@ -737,7 +737,7 @@ for epoch in range(num_epochs):
             labels_InstanceSeg = labels_InstanceSeg.view(-1, 1) # (shape: (batch_size*num_points, 1))
             labels_InstanceSeg = labels_InstanceSeg[:, 0] # (shape: (batch_size*num_points, ))
             loss_InstanceSeg = F.nll_loss(outputs_InstanceSeg, labels_InstanceSeg)
-            loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()[0]
+            loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()
             batch_losses_InstanceSeg.append(loss_InstanceSeg_value)
 
             ########################################################################
@@ -757,7 +757,7 @@ for epoch in range(num_epochs):
             else:
                 loss_TNet = regression_loss_func(outputs_TNet, labels_TNet)
 
-            loss_TNet_value = loss_TNet.data.cpu().numpy()[0]
+            loss_TNet_value = loss_TNet.data.cpu().numpy()
             batch_losses_TNet.append(loss_TNet_value)
 
             ########################################################################
@@ -810,19 +810,19 @@ for epoch in range(num_epochs):
                 # compute the BboxNet total loss:
                 loss_BboxNet = loss_BboxNet_center + loss_BboxNet_size + loss_BboxNet_heading
 
-            loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()[0]
+            loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()
             batch_losses_BboxNet.append(loss_BboxNet_value)
 
-            loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()[0]
+            loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()
             batch_losses_BboxNet_size.append(loss_BboxNet_size_value)
 
-            loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()[0]
+            loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()
             batch_losses_BboxNet_center.append(loss_BboxNet_center_value)
 
-            loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()[0]
+            loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()
             batch_losses_BboxNet_heading_class.append(loss_BboxNet_heading_class_value)
 
-            loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()[0]
+            loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()
             batch_losses_BboxNet_heading_regr.append(loss_BboxNet_heading_regr_value)
 
             ########################################################################
@@ -925,7 +925,7 @@ for epoch in range(num_epochs):
 
                 loss_corner = torch.min(loss_corner_unflipped, loss_corner_flipped)
 
-            loss_corner_value = loss_corner.data.cpu().numpy()[0]
+            loss_corner_value = loss_corner.data.cpu().numpy()
             batch_losses_corner.append(loss_corner_value)
 
             ########################################################################
@@ -934,7 +934,7 @@ for epoch in range(num_epochs):
             lambda_value = 1
             gamma_value = 10
             loss = loss_InstanceSeg + lambda_value*(loss_TNet + loss_BboxNet + gamma_value*loss_corner)
-            loss_value = loss.data.cpu().numpy()[0]
+            loss_value = loss.data.cpu().numpy()
             batch_losses.append(loss_value)
 
     # compute the val epoch loss:
