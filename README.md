@@ -81,6 +81,10 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 
 - - $ git clone https://github.com/fregu856/3DOD_thesis.git 
 
-- - Download KITTI (data_object_image_2.zip, data_object_velodyne.zip, data_object_calib.zip and data_object_label_2.zip) ($ wget *the download link that was sent to you in an email*).
+- - Download KITTI object (data_object_image_2.zip, data_object_velodyne.zip, data_object_calib.zip and data_object_label_2.zip) ($ wget *the download link that was sent to you in an email*).
 - - Unzip all files ($ sudo apt install unzip, and then $ unzip *file name*).
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/object.
+
+- - Download KITTI tracking (data_tracking_image_2.zip, data_tracking_velodyne.zip, data_tracking_calib.zip and data_tracking_label_2.zip) ($ wget *the download link that was sent to you in an email*).
+- - Unzip all files ($ sudo apt install unzip, and then $ unzip *file name*).
+- - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
