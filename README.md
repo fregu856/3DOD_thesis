@@ -146,4 +146,21 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
-- - TODO! TODO! What does it do?! (what is found in the file that it creates and so on?)
+- - Running this script will print:
+```
+validation loss: 0.667806
+validation TNet loss: 0.0494426
+validation InstanceSeg loss: 0.193783
+validation BboxNet loss: 0.163053
+validation BboxNet size loss: 0.0157994
+validation BboxNet center loss: 0.0187426
+validation BboxNet heading class loss: 0.096926
+validation BboxNet heading regr loss: 0.00315847
+validation heading class accuracy: 0.959445
+validation corner loss: 0.0261527
+validation accuracy: 0.921544
+validation precision: 0.887209
+validation recall: 0.949744
+validation f1: 0.917124
+```
+- - TODO! TODO! What does it do?! (what is found in the file that it creates, what metrics does it compute and so on?)
