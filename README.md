@@ -146,4 +146,4 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
-- TODO! TODO! What does it do?! (what is found in the file that it creates and so on?)
+- - TODO! TODO! What does it do?! (what is found in the file that it creates and so on?)
