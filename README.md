@@ -164,3 +164,28 @@ validation recall: 0.949744
 validation f1: 0.917124
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Frustum-PointNet model on sequence from the KITTI training set:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val_seq.py
+- - Running this script will print a number of losses/metrics:
+```
+validation loss: 0.781812
+validation TNet loss: 0.0352736
+validation InstanceSeg loss: 0.292994
+validation BboxNet loss: 0.158156
+validation BboxNet size loss: 0.0182432
+validation BboxNet center loss: 0.0204534
+validation BboxNet heading class loss: 0.0838291
+validation BboxNet heading regr loss: 0.00356304
+validation heading class accuracy: 0.9675
+validation corner loss: 0.0295388
+validation accuracy: 0.865405
+validation precision: 0.83858
+validation recall: 0.924499
+validation f1: 0.879015
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
