@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready (if everything works)
 
 import sys
 sys.path.append("/root/3DOD_thesis/utils")
@@ -105,13 +105,13 @@ class DatasetFrustumPointNetAugmentation(torch.utils.data.Dataset):
         example = self.examples[index]
 
         img_id = example["img_id"]
-        print(img_id)
+        #print(img_id)
 
         lidar_path = self.lidar_dir + img_id + ".bin"
         point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
         orig_point_cloud = point_cloud
 
-        # remove points that are located behind the camera: # TODO! should we allow some points behind the camera when we actually have amodal 2D bboxes??
+        # remove points that are located behind the camera:
         point_cloud = point_cloud[point_cloud[:, 0] > 0, :]
         # remove points that are located too far away from the camera:
         point_cloud = point_cloud[point_cloud[:, 0] < 80, :]
@@ -212,7 +212,7 @@ class DatasetFrustumPointNetAugmentation(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:
@@ -551,7 +551,7 @@ class EvalDatasetFrustumPointNet(torch.utils.data.Dataset):
         point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
         orig_point_cloud = point_cloud
 
-        # remove points that are located behind the camera: # TODO! should we allow some points behind the camera when we actually have amodal 2D bboxes??
+        # remove points that are located behind the camera:
         point_cloud = point_cloud[point_cloud[:, 0] > 0, :]
         # remove points that are located too far away from the camera:
         point_cloud = point_cloud[point_cloud[:, 0] < 80, :]
@@ -606,7 +606,7 @@ class EvalDatasetFrustumPointNet(torch.utils.data.Dataset):
         v_min = bbox[0, 1] # (top)
         v_max = bbox[2, 1] # (bottom)
 
-        # expand the 2D bbox slightly: # TODO! skip this?
+        # expand the 2D bbox slightly:
         u_min_expanded = u_min #- (u_max-u_min)*0.05
         u_max_expanded = u_max #+ (u_max-u_min)*0.05
         v_min_expanded = v_min #- (v_max-v_min)*0.05
@@ -627,7 +627,7 @@ class EvalDatasetFrustumPointNet(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:
@@ -890,7 +890,7 @@ class EvalSequenceDatasetFrustumPointNet(torch.utils.data.Dataset):
         point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
         orig_point_cloud = point_cloud
 
-        # remove points that are located behind the camera: # TODO! should we allow some points behind the camera when we actually have amodal 2D bboxes??
+        # remove points that are located behind the camera:
         point_cloud = point_cloud[point_cloud[:, 0] > 0, :]
         # remove points that are located too far away from the camera:
         point_cloud = point_cloud[point_cloud[:, 0] < 80, :]
@@ -945,7 +945,7 @@ class EvalSequenceDatasetFrustumPointNet(torch.utils.data.Dataset):
         v_min = bbox[0, 1] # (top)
         v_max = bbox[2, 1] # (bottom)
 
-        # expand the 2D bbox slightly: # TODO! skip this?
+        # expand the 2D bbox slightly:
         u_min_expanded = u_min #- (u_max-u_min)*0.05
         u_max_expanded = u_max #+ (u_max-u_min)*0.05
         v_min_expanded = v_min #- (v_max-v_min)*0.05
@@ -966,7 +966,7 @@ class EvalSequenceDatasetFrustumPointNet(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:
@@ -1779,11 +1779,11 @@ class DatasetKittiVal2ddetections(torch.utils.data.Dataset):
 # ###############################################################################
 # # compute the mean car size (h, w, l) in the train set:
 # ###############################################################################
-# with open("/staging/frexgus/kitti/meta/train_img_ids.pkl", "rb") as file:
+# with open("/root/3DOD_thesis/data/kitti/meta/train_img_ids.pkl", "rb") as file:
 #     img_ids = pickle.load(file)
 #
-# label_dir = "/datasets/kitti/object/training/label_2/"
-# calib_dir = "/datasets/kitti/object/training/calib/"
+# label_dir = "/root/3DOD_thesis/data/kitti/object/training/label_2/"
+# calib_dir = "/root/3DOD_thesis/data/kitti/object/training/calib/"
 #
 # hs = []
 # ws = []
@@ -1804,7 +1804,7 @@ class DatasetKittiVal2ddetections(torch.utils.data.Dataset):
 # w_mean = np.mean(np.array(ws))
 # l_mean = np.mean(np.array(ls))
 # train_mean_car_size = np.array([h_mean, w_mean, l_mean])
-# #with open("/staging/frexgus/kitti/meta/train_mean_car_size.pkl", "wb") as file:
+# #with open("/root/3DOD_thesis/data/kitti/meta/train_mean_car_size.pkl", "wb") as file:
 # #    pickle.dump(train_mean_car_size, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2))
 #
 # print (train_mean_car_size)

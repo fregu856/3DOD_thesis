@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready (if everything works)
 
 import torch
 import torch.nn as nn
