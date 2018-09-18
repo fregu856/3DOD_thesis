@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready (if everything works)
 
 import sys
 sys.path.append("/root/3DOD_thesis/utils")
@@ -95,7 +95,7 @@ class DatasetFrustumPointNetImgAugmentation(torch.utils.data.Dataset):
         point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
         orig_point_cloud = point_cloud
 
-        # remove points that are located behind the camera: # TODO! should we allow some points behind the camera when we actually have amodal 2D bboxes??
+        # remove points that are located behind the camera:
         point_cloud = point_cloud[point_cloud[:, 0] > 0, :]
         # remove points that are located too far away from the camera:
         point_cloud = point_cloud[point_cloud[:, 0] < 80, :]
@@ -186,7 +186,7 @@ class DatasetFrustumPointNetImgAugmentation(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:
@@ -505,7 +505,7 @@ class EvalDatasetFrustumPointNetImg(torch.utils.data.Dataset):
         point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
         orig_point_cloud = point_cloud
 
-        # remove points that are located behind the camera: # TODO! should we allow some points behind the camera when we actually have amodal 2D bboxes??
+        # remove points that are located behind the camera:
         point_cloud = point_cloud[point_cloud[:, 0] > 0, :]
         # remove points that are located too far away from the camera:
         point_cloud = point_cloud[point_cloud[:, 0] < 80, :]
@@ -580,7 +580,7 @@ class EvalDatasetFrustumPointNetImg(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:
@@ -936,7 +936,7 @@ class EvalSequenceDatasetFrustumPointNetImg(torch.utils.data.Dataset):
         if frustum_point_cloud.shape[0] == 0:
             print (img_id)
             print (frustum_point_cloud.shape)
-            return self.__getitem__(0) # TODO! deal with this in a nicer way?
+            return self.__getitem__(0)
 
         # randomly sample 1024 points in the frustum point cloud:
         if frustum_point_cloud.shape[0] < 1024:

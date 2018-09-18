@@ -1,8 +1,5 @@
-# mostly done
+# camera-ready (if everything works)
 
-################################################################################
-# WITH reflectance, concatenation, size + heading:
-################################################################################
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -112,7 +109,7 @@ class BboxNet(nn.Module):
 
         resnet34 = models.resnet34()
         # load pretrained model:
-        resnet34.load_state_dict(torch.load("/staging/frexgus/frustum_pointnet/resnet34-333f7ec4.pth"))
+        resnet34.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/resnet/resnet34-333f7ec4.pth"))
         # remove fully connected layer:
         self.resnet34 = nn.Sequential(*list(resnet34.children())[:-2])
 
