@@ -119,21 +119,21 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Image-Only trained for 400 epochs on *KITTI train random*.
 
 ***
-#### Train Frustum-PointNet:
+#### Train Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
 
 ***
-#### Train Extended-Frustum-PointNet:
+#### Train Extended-Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
 
 ***
-#### Train Image-Only:
+#### Train Image-Only model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
