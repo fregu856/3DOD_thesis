@@ -74,6 +74,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - $ sudo apt install unzip
 - - $ sudo apt-get install libopencv-dev
 - - $ pip install opencv-python
+- - $ python -mpip install matplotlib
 - - Commit changes to the image (otherwise, the installed packages will be removed at exit!)
 
 - Do the following outside of the docker image:
