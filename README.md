@@ -97,3 +97,11 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
+
+***
+
+### Train Extended-Frustum-PointNet:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
