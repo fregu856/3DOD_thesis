@@ -163,5 +163,4 @@ validation precision: 0.887209
 validation recall: 0.949744
 validation f1: 0.917124
 ```
-- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, which contains TODO!
-- - TODO! TODO! What does it do?! (what is found in the file that it creates, what metrics does it compute and so on?)
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
