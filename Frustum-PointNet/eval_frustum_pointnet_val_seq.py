@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 from datasets import EvalSequenceDatasetFrustumPointNet, wrapToPi, getBinCenter # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from frustum_pointnet import FrustumPointNet
@@ -20,14 +20,14 @@ sequence = "0004"
 
 batch_size = 32
 
-network = FrustumPointNet("eval", project_dir="/staging/frexgus/frustum_pointnet")
-network.load_state_dict(torch.load("/staging/frexgus/frustum_pointnet/training_logs/model_37_2/checkpoints/model_37_2_epoch_400.pth"))
+network = FrustumPointNet("Frustum-PointNet_eval_val_seq", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_37_2_epoch_400.pth"))
 network = network.cuda()
 
 NH = network.BboxNet_network.NH
 
-val_dataset = EvalSequenceDatasetFrustumPointNet(kitti_data_path="/datasets/kitti",
-                                                 kitti_meta_path="/staging/frexgus/kitti/meta",
+val_dataset = EvalSequenceDatasetFrustumPointNet(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                                 kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                                  NH=NH, sequence=sequence)
 
 num_val_batches = int(len(val_dataset)/batch_size)
@@ -209,7 +209,7 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
         labels_InstanceSeg = labels_InstanceSeg.view(-1, 1) # (shape: (batch_size*num_points, 1))
         labels_InstanceSeg = labels_InstanceSeg[:, 0] # (shape: (batch_size*num_points, ))
         loss_InstanceSeg = F.nll_loss(outputs_InstanceSeg, labels_InstanceSeg)
-        loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()[0]
+        loss_InstanceSeg_value = loss_InstanceSeg.data.cpu().numpy()
         batch_losses_InstanceSeg.append(loss_InstanceSeg_value)
 
         ########################################################################
@@ -229,7 +229,7 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
         else:
             loss_TNet = regression_loss_func(outputs_TNet, labels_TNet)
 
-        loss_TNet_value = loss_TNet.data.cpu().numpy()[0]
+        loss_TNet_value = loss_TNet.data.cpu().numpy()
         batch_losses_TNet.append(loss_TNet_value)
 
         ########################################################################
@@ -283,19 +283,19 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
             # compute the BboxNet total loss:
             loss_BboxNet = loss_BboxNet_center + loss_BboxNet_size + loss_BboxNet_heading
 
-        loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()[0]
+        loss_BboxNet_value = loss_BboxNet.data.cpu().numpy()
         batch_losses_BboxNet.append(loss_BboxNet_value)
 
-        loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()[0]
+        loss_BboxNet_size_value = loss_BboxNet_size.data.cpu().numpy()
         batch_losses_BboxNet_size.append(loss_BboxNet_size_value)
 
-        loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()[0]
+        loss_BboxNet_center_value = loss_BboxNet_center.data.cpu().numpy()
         batch_losses_BboxNet_center.append(loss_BboxNet_center_value)
 
-        loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()[0]
+        loss_BboxNet_heading_class_value = loss_BboxNet_heading_class.data.cpu().numpy()
         batch_losses_BboxNet_heading_class.append(loss_BboxNet_heading_class_value)
 
-        loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()[0]
+        loss_BboxNet_heading_regr_value = loss_BboxNet_heading_regr.data.cpu().numpy()
         batch_losses_BboxNet_heading_regr.append(loss_BboxNet_heading_regr_value)
 
         ########################################################################
@@ -398,7 +398,7 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
 
             loss_corner = torch.min(loss_corner_unflipped, loss_corner_flipped)
 
-        loss_corner_value = loss_corner.data.cpu().numpy()[0]
+        loss_corner_value = loss_corner.data.cpu().numpy()
         batch_losses_corner.append(loss_corner_value)
 
         ########################################################################
@@ -407,7 +407,7 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
         lambda_value = 1
         gamma_value = 10
         loss = loss_InstanceSeg + lambda_value*(loss_TNet + loss_BboxNet + gamma_value*loss_corner)
-        loss_value = loss.data.cpu().numpy()[0]
+        loss_value = loss.data.cpu().numpy()
         batch_losses.append(loss_value)
 
 # compute the val epoch loss:
