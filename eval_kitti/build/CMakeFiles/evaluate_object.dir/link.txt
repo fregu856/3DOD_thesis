@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/evaluate_object.dir/evaluate_object.cpp.o  -o evaluate_object -rdynamic -lpng 

@@ -1,0 +1,32 @@
+{
+	"class_name" : "PinholeCameraTrajectory",
+	"extrinsic" : 
+	[
+		[
+			1.0,
+			0.0,
+			0.0,
+			0,
+			0.0,
+			0.866,
+			0.5,
+			0,
+			0.0,
+			-0.5,
+			0.866,
+			0,
+			0.0,
+			3.0,
+			5.0,
+			1
+		]
+	],
+	"intrinsic" : 
+	{
+		"height" : 1080,
+		"intrinsic_matrix" : [ 935.30743608719376, 0, 0, 0, 935.30743608719376, 0, 959.5, 539.5, 1 ],
+		"width" : 1920
+	},
+	"version_major" : 1,
+	"version_minor" : 0
+}
