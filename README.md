@@ -40,31 +40,31 @@ To train the model, I used an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspac
 
 # DEFAULT VALUES
 GPUIDS="0"
-NAME="fregu856_GPU"
+NAME="paperspace_GPU"
 
 
 NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
         -p 5584:5584 \
         --name "$NAME""$GPUIDS" \
-        -v /home/fregu856:/root/ \
+        -v /home/paperspace:/root/ \
         pytorch/pytorch:0.4_cuda9_cudnn7 bash
 ```
 
-- Inside the image, /root/ will now be mapped to /home/fregu856 (i.e., $ cd -- takes you to the regular home folder). 
+- Inside the image, /root/ will now be mapped to /home/paperspace (i.e., $ cd -- takes you to the regular home folder). 
 
 - To start the image:
 - - $ sudo sh start_docker_image.sh 
 - To commit changes to the image:
 - - Open a new terminal window.
-- - $ sudo docker commit fregu856_GPU0 pytorch/pytorch:0.4_cuda9_cudnn7
+- - $ sudo docker commit paperspace_GPU0 pytorch/pytorch:0.4_cuda9_cudnn7
 - To stop the image when it’s running:
-- - $ sudo docker stop fregu856_GPU0
+- - $ sudo docker stop paperspace_GPU0
 - To exit the image without killing running code:
 - - Ctrl + P + Q
 - To get back into a running image:
-- - $ sudo docker attach fregu856_GPU0
+- - $ sudo docker attach paperspace_GPU0
 - To open more than one terminal window at the same time:
-- - $ sudo docker exec -it fregu856_GPU0 bash
+- - $ sudo docker exec -it paperspace_GPU0 bash
 
 - To install the needed software inside the docker image:
 - - $ apt-get update
