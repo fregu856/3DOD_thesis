@@ -337,6 +337,14 @@ validation f1: 0.8914
 
 - - Running this script will print a number of losses/metrics:
 ```
+val loss: 0.00425181
+val size loss: 0.000454653
+val keypoints loss: 0.000264362
+val distance loss: 0.115353
+val 3d size loss: 0.000439736
+val 3d center loss: 0.0352361
+val 3d r_y loss: 0.0983654
+val 3d distance loss: 0.102937
 
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
