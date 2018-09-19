@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 from datasets_img import DatasetKittiVal2ddetections, wrapToPi, getBinCenter # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from frustum_pointnet_img import FrustumPointNetImg
@@ -13,25 +13,25 @@ import torch.nn.functional as F
 import numpy as np
 import pickle
 
-batch_size = 32
+batch_size = 8
 
-network = FrustumPointNetImg("eval", project_dir="/staging/frexgus/frustum_pointnet")
-network.load_state_dict(torch.load("/staging/frexgus/frustum_pointnet/training_logs/model_38/checkpoints/model_38_epoch_400.pth"))
+network = FrustumPointNetImg("Extended-Frustum-PointNet_eval_val_2ddetections", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_38_2_epoch_400.pth"))
 network = network.cuda()
 
 network.eval() # (set in evaluation mode, this affects BatchNorm and dropout)
 
 NH = network.BboxNet_network.NH
 
-val_dataset = DatasetKittiVal2ddetections(kitti_data_path="/datasets/kitti",
-                                          kitti_meta_path="/staging/frexgus/kitti/meta",
+val_dataset = DatasetKittiVal2ddetections(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                          kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                           NH=NH)
 
 num_val_batches = int(len(val_dataset)/batch_size)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=batch_size, shuffle=False,
-                                         num_workers=16)
+                                         num_workers=4)
 eval_dict = {}
 for step, (frustum_point_clouds, bbox_2d_imgs, img_ids, input_2Dbboxes, frustum_Rs, frustum_angles, empty_frustum_flags, centered_frustum_mean_xyz, mean_car_size, scores_2d) in enumerate(val_loader):
     if step % 100 == 0:
