@@ -286,3 +286,38 @@ validation recall: 0.942269
 validation f1: 0.8914
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on *KITTI test*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_test.py
+
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on sequences from *KITTI test*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_test_seq.py
+
+- - Running this script will create the files *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test_seq/eval_dict_test_seq_{sequence number}.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on *KITTI val*, with 2D detections as input:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val_2ddetections.py
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
+
+****
+****
