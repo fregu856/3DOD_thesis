@@ -358,7 +358,14 @@ val 3d distance loss: 0.102937
 
 - - Running this script will print a number of losses/metrics:
 ```
-
+val loss: 0.00529856
+val size loss: 0.000539969
+val keypoints loss: 0.000351892
+val distance loss: 0.123967
+val 3d size loss: 0.000526106
+val 3d center loss: 0.0398309
+val 3d r_y loss: 0.000271052
+val 3d distance loss: 0.11471
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
 
