@@ -1,7 +1,7 @@
-# mostly done
+# camera-ready
 
 from datasets_imgnet import DatasetImgNetEvalValSeq, BoxRegressor # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
-from datasets import wrapToPi
+from datasets_imgnet import wrapToPi
 from imgnet import ImgNet
 
 import torch
@@ -18,16 +18,16 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import cv2
 
-sequence = "0007"
+sequence = "0004"
 
-batch_size = 32 # NOTE! NOTE
+batch_size = 8
 
-network = ImgNet("eval", project_dir="/staging/frexgus/imgnet")
-network.load_state_dict(torch.load("/staging/frexgus/imgnet/training_logs/model_10/checkpoints/model_10_epoch_400.pth"))
+network = ImgNet("Image-Only_eval_val_seq", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_10_2_epoch_400.pth"))
 network = network.cuda()
 
-val_dataset = DatasetImgNetEvalValSeq(kitti_data_path="/datasets/kitti",
-                                     kitti_meta_path="/staging/frexgus/kitti/meta",
+val_dataset = DatasetImgNetEvalValSeq(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                     kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                      sequence=sequence)
 
 num_val_batches = int(len(val_dataset)/batch_size)
@@ -36,7 +36,7 @@ print ("num_val_batches:", num_val_batches)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=batch_size, shuffle=False,
-                                         num_workers=16)
+                                         num_workers=4)
 
 regression_loss_func = nn.SmoothL1Loss()
 
@@ -58,6 +58,7 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
         labels_size = Variable(labels_size) # (shape: (batch_size, 3))
         labels_keypoints = Variable(labels_keypoints) # (shape: (batch_size, 2*8))
         labels_distance = Variable(labels_distance) # (shape: (batch_size, 1))
+        labels_distance = labels_distance.view(-1) # (shape: (batch_size, ))
 
         bbox_2d_imgs = bbox_2d_imgs.cuda()
         labels_size = labels_size.cuda()
@@ -67,14 +68,14 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
         outputs = network(bbox_2d_imgs) # (shape: (batch_size, 2*8 + 3 = 19))
         outputs_keypoints = outputs[:, 0:16] # (shape: (batch_size, 2*8))
         outputs_size = outputs[:, 16:19] # (shape: (batch_size, 3)
-        outputs_distance = outputs[:, 19] # (shape: (batch_size, 1)
+        outputs_distance = outputs[:, 19] # (shape: (batch_size, )
 
         ########################################################################
         # compute the size loss:
         ########################################################################
         loss_size = regression_loss_func(outputs_size, labels_size)
 
-        loss_size_value = loss_size.data.cpu().numpy()[0]
+        loss_size_value = loss_size.data.cpu().numpy()
         batch_losses_size.append(loss_size_value)
 
         ########################################################################
@@ -82,7 +83,7 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
         ########################################################################
         loss_keypoints = regression_loss_func(outputs_keypoints, labels_keypoints)
 
-        loss_keypoints_value = loss_keypoints.data.cpu().numpy()[0]
+        loss_keypoints_value = loss_keypoints.data.cpu().numpy()
         batch_losses_keypoints.append(loss_keypoints_value)
 
         ########################################################################
@@ -90,14 +91,14 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
         ########################################################################
         loss_distance = regression_loss_func(outputs_distance, labels_distance)
 
-        loss_distance_value = loss_distance.data.cpu().numpy()[0]
+        loss_distance_value = loss_distance.data.cpu().numpy()
         batch_losses_distance.append(loss_distance_value)
 
         ########################################################################
         # compute the total loss:
         ########################################################################
         loss = loss_size + 10*loss_keypoints + 0.01*loss_distance
-        loss_value = loss.data.cpu().numpy()[0]
+        loss_value = loss.data.cpu().numpy()
         batch_losses.append(loss_value)
 
         ########################################################################
@@ -159,9 +160,9 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
             bbox_dict["pred_l"] = pred_l
             bbox_dict["pred_r_y"] = pred_r_y
             bbox_dict["gt_center"] = gt_center.numpy()
-            bbox_dict["gt_h"] = gt_size[0].data.cpu().numpy()[0]
-            bbox_dict["gt_w"] = gt_size[1].data.cpu().numpy()[0]
-            bbox_dict["gt_l"] = gt_size[2].data.cpu().numpy()[0]
+            bbox_dict["gt_h"] = gt_size[0].data.cpu().numpy()
+            bbox_dict["gt_w"] = gt_size[1].data.cpu().numpy()
+            bbox_dict["gt_l"] = gt_size[2].data.cpu().numpy()
             bbox_dict["gt_r_y"] = gt_r_y
 
             eval_dict[img_id].append(bbox_dict)
@@ -181,19 +182,19 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
         labels_r_y = Variable(labels_r_y).cuda()
 
         loss_3d_size = regression_loss_func(preds_3d_size, labels_size)
-        loss_3d_size_value = loss_3d_size.data.cpu().numpy()[0]
+        loss_3d_size_value = loss_3d_size.data.cpu().numpy()
         batch_losses_3d_size.append(loss_3d_size_value)
 
         loss_3d_center = regression_loss_func(preds_3d_center, labels_center)
-        loss_3d_center_value = loss_3d_center.data.cpu().numpy()[0]
+        loss_3d_center_value = loss_3d_center.data.cpu().numpy()
         batch_losses_3d_center.append(loss_3d_center_value)
 
         loss_3d_r_y = regression_loss_func(preds_3d_r_y, labels_r_y)
-        loss_3d_r_y_value = loss_3d_r_y.data.cpu().numpy()[0]
+        loss_3d_r_y_value = loss_3d_r_y.data.cpu().numpy()
         batch_losses_3d_r_y.append(loss_3d_r_y_value)
 
         loss_3d_distance = regression_loss_func(preds_3d_distance, labels_distance)
-        loss_3d_distance_value = loss_3d_distance.data.cpu().numpy()[0]
+        loss_3d_distance_value = loss_3d_distance.data.cpu().numpy()
         batch_losses_3d_distance.append(loss_3d_distance_value)
 
 epoch_loss = np.mean(batch_losses)
@@ -220,5 +221,5 @@ print ("val 3d r_y loss: %g" % epoch_loss)
 epoch_loss = np.mean(batch_losses_3d_distance)
 print ("val 3d distance loss: %g" % epoch_loss)
 
-with open("%s/eval_dict_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
+with open("%s/eval_dict_val_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
     pickle.dump(eval_dict, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2)
