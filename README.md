@@ -218,10 +218,6 @@ validation f1: 0.879015
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val_2ddetections.py
-- - Running this script will print a number of losses/metrics:
-```
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
 
-```
-- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
-
-- - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
+- - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
