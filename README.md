@@ -177,7 +177,7 @@ validation f1: 0.917124
 - - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
 
 ***
-#### Run pretrained Frustum-PointNet model on sequence from the KITTI training set:
+#### Run pretrained Frustum-PointNet model on a sequence from the KITTI training set:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -261,3 +261,28 @@ validation recall: 0.954732
 validation f1: 0.921978
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on a sequence from the KITTI training set:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val_seq.py
+- - Running this script will print a number of losses/metrics:
+```
+validation loss: 0.499888
+validation TNet loss: 0.0294649
+validation InstanceSeg loss: 0.281868
+validation BboxNet loss: 0.0197038
+validation BboxNet size loss: 0.00138443
+validation BboxNet center loss: 0.0167136
+validation BboxNet heading class loss: 4.17427e-05
+validation BboxNet heading regr loss: 0.000156402
+validation heading class accuracy: 0.998711
+validation corner loss: 0.0168851
+validation accuracy: 0.878334
+validation precision: 0.848052
+validation recall: 0.942269
+validation f1: 0.8914
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
