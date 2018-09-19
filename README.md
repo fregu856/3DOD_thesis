@@ -157,6 +157,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
+
 - - Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.667806
@@ -182,6 +183,7 @@ validation f1: 0.917124
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val_seq.py
+
 - - Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.781812
@@ -229,6 +231,7 @@ validation f1: 0.879015
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val_2ddetections.py
+
 - - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
@@ -243,6 +246,7 @@ validation f1: 0.879015
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val.py
+
 - - Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.418462
@@ -268,6 +272,7 @@ validation f1: 0.921978
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val_seq.py
+
 - - Running this script will print a number of losses/metrics:
 ```
 validation loss: 0.499888
@@ -315,9 +320,77 @@ validation f1: 0.8914
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val_2ddetections.py
+
 - - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
 
 ****
 ****
+
+***
+#### Run pretrained Image-Only model on *KITTI val*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/eval_imgnet_val.py
+
+- - Running this script will print a number of losses/metrics:
+```
+val loss: 0.00425181
+val size loss: 0.000454653
+val keypoints loss: 0.000264362
+val distance loss: 0.115353
+val 3d size loss: 0.000439736
+val 3d center loss: 0.0352361
+val 3d r_y loss: 0.0983654
+val 3d distance loss: 0.102937
+
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Image-Only model on a sequence from the KITTI training set:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/eval_imgnet_val_seq.py
+
+- - Running this script will print a number of losses/metrics:
+```
+
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Image-Only model on *KITTI test*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/eval_imgnet_test.py
+
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
+
+***
+#### Run pretrained Image-Only model on sequences from *KITTI test*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/eval_imgnet_test_seq.py
+
+- - Running this script will create the files *3DOD_thesis/training_logs/model_Image-Only_eval_test_seq/eval_dict_test_seq_{sequence number}.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
+
+***
+#### Run pretrained Image-Only model on *KITTI val*, with 2D detections as input:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Image-Only/eval_imgnet_val_2ddetections.py
+
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
