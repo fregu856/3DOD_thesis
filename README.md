@@ -242,22 +242,22 @@ validation f1: 0.879015
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
-- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val.py
 - - Running this script will print a number of losses/metrics:
 ```
-validation loss: 0.667806
-validation TNet loss: 0.0494426
-validation InstanceSeg loss: 0.193783
-validation BboxNet loss: 0.163053
-validation BboxNet size loss: 0.0157994
-validation BboxNet center loss: 0.0187426
-validation BboxNet heading class loss: 0.096926
-validation BboxNet heading regr loss: 0.00315847
-validation heading class accuracy: 0.959445
-validation corner loss: 0.0261527
-validation accuracy: 0.921544
-validation precision: 0.887209
-validation recall: 0.949744
-validation f1: 0.917124
+validation loss: 0.418462
+validation TNet loss: 0.047026
+validation InstanceSeg loss: 0.181566
+validation BboxNet loss: 0.0217167
+validation BboxNet size loss: 0.0020278
+validation BboxNet center loss: 0.0168909
+validation BboxNet heading class loss: 0.00148923
+validation BboxNet heading regr loss: 0.000130879
+validation heading class accuracy: 0.999694
+validation corner loss: 0.0168153
+validation accuracy: 0.927203
+validation precision: 0.893525
+validation recall: 0.954732
+validation f1: 0.921978
 ```
-- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+- - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
