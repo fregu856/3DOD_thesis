@@ -5,6 +5,9 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 - Youtube video of results (https://youtu.be/KdrHLXpYYlg):
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
+****
+****
+
 ******
 ### Paperspace:
 
@@ -90,6 +93,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Unzip all files ($ sudo apt install unzip, and then $ unzip *file name*).
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
 
+****
+****
+
 ***
 ### Used datasets:
 - *KITTI train*:
@@ -118,6 +124,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - pretrained_models/model_10_2_epoch_400.pth:
 - - Image-Only trained for 400 epochs on *KITTI train random*.
 
+****
+****
+
 ***
 #### Train Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
@@ -139,6 +148,8 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/train_imgnet.py
 
+****
+****
 
 ***
 #### Run pretrained Frustum-PointNet model on *KITTI val*:
@@ -225,3 +236,28 @@ validation f1: 0.879015
 
 ****
 ****
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on *KITTI val*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val.py
+- - Running this script will print a number of losses/metrics:
+```
+validation loss: 0.667806
+validation TNet loss: 0.0494426
+validation InstanceSeg loss: 0.193783
+validation BboxNet loss: 0.163053
+validation BboxNet size loss: 0.0157994
+validation BboxNet center loss: 0.0187426
+validation BboxNet heading class loss: 0.096926
+validation BboxNet heading regr loss: 0.00315847
+validation heading class accuracy: 0.959445
+validation corner loss: 0.0261527
+validation accuracy: 0.921544
+validation precision: 0.887209
+validation recall: 0.949744
+validation f1: 0.917124
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
