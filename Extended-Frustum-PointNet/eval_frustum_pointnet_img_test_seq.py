@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 from datasets_img import DatasetKittiTestSequence, wrapToPi, getBinCenter # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
 from frustum_pointnet_img import FrustumPointNetImg
@@ -13,10 +13,10 @@ import torch.nn.functional as F
 import numpy as np
 import pickle
 
-batch_size = 32
+batch_size = 8
 
-network = FrustumPointNetImg("eval", project_dir="/staging/frexgus/frustum_pointnet")
-network.load_state_dict(torch.load("/staging/frexgus/frustum_pointnet/training_logs/model_38_2/checkpoints/model_38_2_epoch_400.pth"))
+network = FrustumPointNetImg("Extended-Frustum-PointNet_eval_test_seq", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_38_2_epoch_400.pth"))
 network = network.cuda()
 
 network.eval() # (set in evaluation mode, this affects BatchNorm and dropout)
@@ -26,15 +26,15 @@ NH = network.BboxNet_network.NH
 for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012", "0013", "0014", "0015", "0016", "0017", "0018", "0027"]:
     print (sequence)
 
-    test_dataset = DatasetKittiTestSequence(kitti_data_path="/datasets/kitti",
-                                            kitti_meta_path="/staging/frexgus/kitti/meta",
+    test_dataset = DatasetKittiTestSequence(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                            kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                             NH=NH, sequence=sequence)
 
     num_test_batches = int(len(test_dataset)/batch_size)
 
     test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                               batch_size=batch_size, shuffle=False,
-                                              num_workers=16)
+                                              num_workers=4)
     eval_dict = {}
     for step, (frustum_point_clouds, bbox_2d_imgs, img_ids, input_2Dbboxes, frustum_Rs, frustum_angles, empty_frustum_flags, centered_frustum_mean_xyz, mean_car_size) in enumerate(test_loader):
         if step % 100 == 0:
@@ -117,6 +117,5 @@ for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007",
 
                     eval_dict[img_id].append(bbox_dict)
 
-    # NOTE! NOTE! NOTE! NOTE!
-    with open("%s/38_2_eval_dict_test_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
+    with open("%s/eval_dict_test_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
         pickle.dump(eval_dict, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2)
