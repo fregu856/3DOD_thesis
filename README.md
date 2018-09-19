@@ -5,6 +5,9 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 - Youtube video of results (https://youtu.be/KdrHLXpYYlg):
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
+****
+****
+
 ******
 ### Paperspace:
 
@@ -90,6 +93,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - Unzip all files ($ sudo apt install unzip, and then $ unzip *file name*).
 - - Place the folders 'training' and 'testing' in 3DOD_thesis/data/kitti/tracking.
 
+****
+****
+
 ***
 ### Used datasets:
 - *KITTI train*:
@@ -118,6 +124,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - pretrained_models/model_10_2_epoch_400.pth:
 - - Image-Only trained for 400 epochs on *KITTI train random*.
 
+****
+****
+
 ***
 #### Train Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
@@ -139,6 +148,8 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/train_imgnet.py
 
+****
+****
 
 ***
 #### Run pretrained Frustum-PointNet model on *KITTI val*:
@@ -221,3 +232,32 @@ validation f1: 0.879015
 - - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
+
+
+****
+****
+
+***
+#### Run pretrained Extended-Frustum-PointNet model on *KITTI val*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val.py
+- - Running this script will print a number of losses/metrics:
+```
+validation loss: 0.418462
+validation TNet loss: 0.047026
+validation InstanceSeg loss: 0.181566
+validation BboxNet loss: 0.0217167
+validation BboxNet size loss: 0.0020278
+validation BboxNet center loss: 0.0168909
+validation BboxNet heading class loss: 0.00148923
+validation BboxNet heading regr loss: 0.000130879
+validation heading class accuracy: 0.999694
+validation corner loss: 0.0168153
+validation accuracy: 0.927203
+validation precision: 0.893525
+validation recall: 0.954732
+validation f1: 0.921978
+```
+- - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
