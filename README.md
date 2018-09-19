@@ -189,3 +189,13 @@ validation recall: 0.924499
 validation f1: 0.879015
 ```
 - - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+
+***
+#### Run pretrained Frustum-PointNet model on the KITTI testing set:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_test.py
+
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - TODO! TODO! Uses detections from a 2D detector (with what performance? From a previous thesis project at Zenuity)
