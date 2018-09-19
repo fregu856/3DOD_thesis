@@ -201,5 +201,13 @@ validation f1: 0.879015
 
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
+***
+#### Run pretrained Frustum-PointNet model on sequences from *KITTI test*:
+- SSH into the paperspace server.
+- $ sudo sh start_docker_image.sh
+- $ cd --
+- $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_test_seq.py
 
-- - TODO! TODO! Uses detections from a 2D detector (with what performance? From a previous thesis project at Zenuity)
+- - Running this script will create the files *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test_seq/eval_dict_test_seq_{sequence number}.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+
+- - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
