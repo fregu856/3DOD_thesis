@@ -410,6 +410,8 @@ val 3d distance loss: 0.11471
 
 - For visualization of point clouds and 3Dbboxes in different ways, I have used [Open3D](http://www.open3d.org/) on my Ubuntu 16.04 laptop.
 
+- On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
+
 - Installing Open3D:
 - - $ cd ~/3DOD_thesis
 - - $ git clone https://github.com/IntelVCL/Open3D
