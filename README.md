@@ -419,5 +419,10 @@ val 3d distance loss: 0.11471
 - - $ cd build
 - - $ cmake -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python ../src *(to make sure it uses python 2)*
 - - $ make -j
+- - Test if everything works:
+- - - $ cd lib/Tutorial/Basic
+- - - $ python rgbd_redwood.py *(scroll to zoom in/out, click and drag to rotate, Ctrl + click and drag to translate)*
+- - - $ python pointcloud.py
+- - - $ python rgbd_sun.py
 
 
