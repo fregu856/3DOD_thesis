@@ -422,4 +422,9 @@ val 3d distance loss: 0.11471
 - - $ cmake -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python ../src *(to make sure it uses python 2)*
 - - $ make -j
 
+- Basic Open3D usage:
+- - Click + drag: rotate the 3D world.
+- - Ctrl + click + drag: shift the 3D world.
+- - Scroll: zoom in and out.
+
 
