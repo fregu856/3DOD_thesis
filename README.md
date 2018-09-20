@@ -152,7 +152,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ****
 
 ***
-#### Run pretrained Frustum-PointNet model on *KITTI val*:
+#### Run pretrained Frustum-PointNet model on KITTI val
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -430,7 +430,7 @@ val 3d distance loss: 0.11471
 ****
 #### visualization/visualize_eval_val.py:
 
-- Do either [create an anchor](#run-pretrained-frustum-pointNet-model-on-*kitti-val*), .... or .... TODO!
+- Do either [create an anchor](#run-pretrained-frustum-pointNet-model-on-kitti-val), .... or .... TODO!
 - Place the file.... in ..... TODO!
 
 - $ cd 3DOD_thesis
