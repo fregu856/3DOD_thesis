@@ -65,7 +65,8 @@ batch_losses_3d_distance = []
 eval_dict = {}
 for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids, mean_car_size, ws, hs, u_centers, v_centers, camera_matrices, labels_center, labels_r_y, mean_distance) in enumerate(val_loader):
     with torch.no_grad(): # (corresponds to setting volatile=True in all variables, this is done during inference to reduce memory consumption)
-        print ("step %d/%d" % (step+1, num_val_batches))
+        if step % 100 == 0:
+            print ("step %d/%d" % (step+1, num_val_batches))
 
         bbox_2d_imgs = Variable(bbox_2d_imgs) # (shape: (batch_size, 3, H, W) = (batch_size, 3, 224, 224))
         labels_size = Variable(labels_size) # (shape: (batch_size, 3))
@@ -162,6 +163,8 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
             preds_3d_r_y[i] = pred_r_y
 
             preds_3d_distance[i] = np.linalg.norm(np.array([pred_x, pred_y, pred_z]))
+
+            gt_r_y = gt_r_y.data.cpu().numpy()
 
             if img_id not in eval_dict:
                 eval_dict[img_id] = []
