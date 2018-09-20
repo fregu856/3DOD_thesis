@@ -436,7 +436,10 @@ val 3d distance loss: 0.11471
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_val.py
 
-- This will open a window in Open3D with .... (GT, then pred then GT and pred... close thw window to continue....for each image...)
+- This will: 
+- - (1) Open a window in Open3D, visualizing the point cloud and the ground truth 3Dbboxes.
+- - (2) By closing the window, a new window is opened visualizing the point cloud and the predicted 3Dbboxes.
+- - (3) By closing the window, a new window is opened visualizing the point cloud, the ground truth 3Dbboxes and the predicted 3Dbboxes.
+- - (4) By closing the window, step 1 is repeated for the next example.
 
-- TODO! what happens? needs to close the window in each step blabla
 
