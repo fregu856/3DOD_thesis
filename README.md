@@ -430,7 +430,7 @@ val 3d distance loss: 0.11471
 ****
 #### visualization/visualize_eval_val.py:
 
-- Do either [create an anchor](#run-pretrained-frustum-pointnet-model-on-kitti-val), .... or .... TODO!
+- Do either [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) TODO!
 - Place the file.... in ..... TODO!
 
 - $ cd 3DOD_thesis
