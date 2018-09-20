@@ -458,6 +458,11 @@ val 3d distance loss: 0.11471
 - - (2) Create *visualization_eval_test.png*, visualizing the predicted 3Dbboxes and the input 2Dbboxes in the image plane.
 - - (3) By closing the Open3D window, step 1 is repeated for the next example.
 
+****
+#### visualization/visualize_eval_val_seq.py:
+
+- TODO! (this can do a lot of different things, see the code, the default is that it creates a video with lidar, image and pred 3dbboxes).
+
 
 
 
