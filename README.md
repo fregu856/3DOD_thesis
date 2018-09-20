@@ -431,15 +431,16 @@ val 3d distance loss: 0.11471
 #### visualization/visualize_eval_val.py:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*.
-- Place the file.... in ..... TODO!
+
+- Place the created *eval_dict_val.pkl* in the correct location (see line 253 in visualize_eval_val.py).
 
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_val.py
 
 - This will: 
 - - (1) Open a window in Open3D, visualizing the point cloud and the ground truth 3Dbboxes.
-- - (2) By closing the window, a new window is opened visualizing the point cloud and the predicted 3Dbboxes.
-- - (3) By closing the window, a new window is opened visualizing the point cloud, the ground truth 3Dbboxes and the predicted 3Dbboxes.
-- - (4) By closing the window, step 1 is repeated for the next example.
+- - (2) By closing this window, a new window is opened visualizing the point cloud and the predicted 3Dbboxes.
+- - (3) By closing this window, a new window is opened visualizing the point cloud, the ground truth 3Dbboxes and the predicted 3Dbboxes.
+- - (4) By closing this window, step 1 is repeated for the next example.
 
 
