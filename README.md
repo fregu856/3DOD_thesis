@@ -401,3 +401,23 @@ val 3d distance loss: 0.11471
 - - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
+
+****
+****
+
+****
+### Visualization
+
+- For visualization of point clouds and 3Dbboxes in different ways, I have used [Open3D](http://www.open3d.org/) on my Ubuntu 16.04 laptop.
+
+- Installing Open3D:
+- - $ cd ~/3DOD_thesis
+- - $ git clone https://github.com/IntelVCL/Open3D
+- - $ cd Open3D
+- - $ scripts/install-deps-ubuntu.sh
+- - $ mkdir build
+- - $ cd build
+- - $ cmake -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python ../src *(to make sure it uses python 2)*
+- - $ make -j
+
+
