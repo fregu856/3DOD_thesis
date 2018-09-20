@@ -152,7 +152,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ****
 
 ***
-#### Run pretrained Frustum-PointNet model on *KITTI val*
+#### Run pretrained Frustum-PointNet model on *KITTI val*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
