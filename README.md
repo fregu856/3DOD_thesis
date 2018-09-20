@@ -427,4 +427,7 @@ val 3d distance loss: 0.11471
 - - Ctrl + click + drag: shift the 3D world.
 - - Scroll: zoom in and out.
 
+#### visualization/visualize_eval_val.py:
+
+- TODO! what happens? needs to close the window in each step blabla
 
