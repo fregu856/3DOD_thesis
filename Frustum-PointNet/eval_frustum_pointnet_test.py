@@ -96,6 +96,10 @@ for step, (frustum_point_clouds, img_ids, input_2Dbboxes, frustum_Rs, frustum_an
                 pred_centered_r_y = pred_bin_center + pred_residual
                 pred_r_y = wrapToPi(pred_centered_r_y + frustum_angle) # NOTE!
 
+                pred_r_y = pred_r_y.data.cpu().numpy()
+                score_2d = score_2d.data.cpu().numpy()
+                input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+
                 if img_id not in eval_dict:
                     eval_dict[img_id] = []
 
