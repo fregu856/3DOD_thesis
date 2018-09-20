@@ -430,5 +430,13 @@ val 3d distance loss: 0.11471
 ****
 #### visualization/visualize_eval_val.py:
 
+- Do either ...., .... or .... TODO!
+- Place the file.... in ..... TODO!
+
+- $ cd 3DOD_thesis
+- $ python visualization/visualize_eval_val.py
+
+- This will open a window in Open3D with .... (GT, then pred then GT and pred... close thw window to continue....for each image...)
+
 - TODO! what happens? needs to close the window in each step blabla
 
