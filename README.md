@@ -454,6 +454,10 @@ val 3d distance loss: 0.11471
 - $ python visualization/visualize_eval_test.py
 
 - This will: 
-- - TODO!
+- - (1) Open a window in Open3D, visualizing the point cloud and the predicted 3Dbboxes.
+- - (2) Create *visualization_eval_test.png*, visualizing the predicted 3Dbboxes and the input 2Dbboxes in the image plane.
+- - (3) By closing the Open3D window, step 1 is repeated for the next example.
+
+
 
 
