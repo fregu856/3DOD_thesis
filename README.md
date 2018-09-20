@@ -443,4 +443,17 @@ val 3d distance loss: 0.11471
 - - (3) By closing this window, a new window is opened visualizing the point cloud, the ground truth 3Dbboxes and the predicted 3Dbboxes.
 - - (4) By closing this window, step 1 is repeated for the next example.
 
+****
+#### visualization/visualize_eval_test.py:
+
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-kitti-test) model on *KITTI test*.
+
+- Place the created *eval_dict_test.pkl* in the correct location (see line 279 in visualize_eval_test.py).
+
+- $ cd 3DOD_thesis
+- $ python visualization/visualize_eval_test.py
+
+- This will: 
+- - TODO!
+
 
