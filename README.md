@@ -461,12 +461,12 @@ val 3d distance loss: 0.11471
 ****
 #### visualization/visualize_eval_val_seq.py:
 
-- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set) or [Image-Only](#run-pretrained-image-only-model-on-a-sequence-from-the-kitti-training-set) model on *KITTI test*.
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set) or [Image-Only](#run-pretrained-image-only-model-on-a-sequence-from-the-kitti-training-set) model on a sequence from the KITTI training set.
 
-- Place the created *eval_dict_test.pkl* in the correct location (see line 279 in visualize_eval_test.py).
+- Place the created *eval_dict_val_seq_{sequence number}.pkl* in the correct location (see line 256 in visualize_eval_val_seq.py).
 
 - $ cd 3DOD_thesis
-- $ python visualization/visualize_eval_test.py
+- $ python visualization/visualize_eval_val_seq.py
 
 - TODO! (this can do a lot of different things, see the code, the default is that it creates a video with lidar, image and pred 3dbboxes).
 
