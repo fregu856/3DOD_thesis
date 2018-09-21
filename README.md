@@ -120,6 +120,9 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - The KITTI testing set, 7518 examples.
 
 ***
+***
+
+***
 ## Pretrained models:
 - pretrained_models/model_37_2_epoch_400.pth:
 - - Frustum-PointNet trained for 400 epochs on *KITTI train random*.
