@@ -150,6 +150,8 @@ for step, (bbox_2d_imgs, labels_size, labels_keypoints, labels_distance, img_ids
 
             preds_3d_distance[i] = np.linalg.norm(np.array([pred_x, pred_y, pred_z]))
 
+            gt_r_y = gt_r_y.data.cpu().numpy()
+
             if img_id not in eval_dict:
                 eval_dict[img_id] = []
 

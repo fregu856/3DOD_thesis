@@ -139,6 +139,10 @@ for step, (frustum_point_clouds, bbox_2d_imgs, labels_InstanceSeg, labels_TNet, 
                 gt_centered_r_y = gt_bin_center + gt_residual
                 gt_r_y = wrapToPi(gt_centered_r_y + frustum_angle) # NOTE!
 
+                pred_r_y = pred_r_y.data.cpu().numpy()
+                gt_r_y = gt_r_y.data.cpu().numpy()
+                input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+
                 if img_id not in eval_dict:
                     eval_dict[img_id] = []
 

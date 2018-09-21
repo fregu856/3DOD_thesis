@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 import pickle
 import numpy as np
@@ -7,10 +7,10 @@ import cv2
 import os
 
 import sys
-sys.path.append("/home/fregu856/exjobb/Open3D/build/lib")
+sys.path.append("/home/fregu856/3DOD_thesis/Open3D/build/lib") # NOTE! you'll have to adapt this for your file structure
 from py3d import *
 
-sys.path.append("/home/fregu856/exjobb/code/3dod_thesis/utils") # TODO! change for new file structure (gonna move the code to a separate folder)
+sys.path.append("/home/fregu856/3DOD_thesis/utils") # NOTE! you'll have to adapt this for your file structure
 from kittiloader import LabelLoader2D3D, calibread
 
 def create3Dbbox(center, h, w, l, r_y, type="pred"):
@@ -234,13 +234,12 @@ def draw_3d_polys(img, polys):
 
     return img
 
-# NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-sequence = "0007"
+sequence = "0004" # NOTE! change this to visualize a different sequence
 
-project_dir = "/home/fregu856/exjobb/"
+project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
 data_dir = project_dir + "data/kitti/tracking/training/"
 img_dir = data_dir + "image_02/" + sequence + "/"
-calib_path = project_dir + "data/kitti/meta/tracking/training/calib/" + sequence + ".txt"
+calib_path = project_dir + "data/kitti/meta/tracking/training/calib/" + sequence + ".txt" # NOTE! kitti/meta
 lidar_dir = data_dir + "velodyne/" + sequence + "/"
 
 calib = calibread(calib_path)
@@ -254,9 +253,18 @@ R0_rect[0:3, 0:3] = R0_rect_orig
 Tr_velo_to_cam = np.eye(4)
 Tr_velo_to_cam[0:3, :] = Tr_velo_to_cam_orig
 
-# NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-with open("/home/fregu856/exjobb/training_logs/imgnet/model_6/eval_dict_seq_%s.pkl" % sequence, "rb") as file:
+# NOTE! here you can choose what model's output you want to visualize
+# Frustum-PointNet:
+with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_seq/eval_dict_val_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
     eval_dict = pickle.load(file)
+#################################
+# # Extended-Frustum-PointNet:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_seq/eval_dict_val_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
+##################################
+# # Image-Only:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_val_seq/eval_dict_val_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
 
 img_data_dict = {}
 for img_id in eval_dict:
@@ -314,7 +322,7 @@ small_img_width = 620
 # ################################################################################
 # # create a video of images (no bboxes):
 # ################################################################################
-# out = cv2.VideoWriter("val_%s_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
+# out = cv2.VideoWriter("eval_val_seq_%s_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
 #
 # for img_id in sorted_img_ids:
 #     print img_id
@@ -328,7 +336,7 @@ small_img_width = 620
 # ################################################################################
 # # create a video of images with GT:
 # ################################################################################
-# out = cv2.VideoWriter("val_%s_img_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
+# out = cv2.VideoWriter("eval_val_seq_%s_img_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
 #
 # for img_id in sorted_img_ids:
 #     print img_id
@@ -350,7 +358,7 @@ small_img_width = 620
 # ################################################################################
 # # create a video of images with pred:
 # ################################################################################
-# out = cv2.VideoWriter("val_%s_img_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
+# out = cv2.VideoWriter("eval_val_seq_%s_img_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
 #
 # for img_id in sorted_img_ids:
 #     print img_id
@@ -369,40 +377,40 @@ small_img_width = 620
 #
 #     out.write(img_with_pred_bboxes)
 
-################################################################################
-# create a video of images with GT on top of pred:
-################################################################################
-out = cv2.VideoWriter("imgnet_val_%s_img_GT_pred_model_6.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, 2*img_height), True)
-
-for img_id in sorted_img_ids:
-    print img_id
-
-    img = cv2.imread(img_dir + img_id + ".png", -1)
-
-    img_with_gt_bboxes = img
-    img_with_pred_bboxes = img
-
-    if img_id in img_data_dict:
-        data_dict = img_data_dict[img_id]
-        gt_bbox_polys = data_dict["gt_bbox_polys"]
-        pred_bbox_polys = data_dict["pred_bbox_polys"]
-
-        img_with_gt_bboxes = draw_3d_polys(img, gt_bbox_polys)
-        img_with_pred_bboxes = draw_3d_polys(img, pred_bbox_polys)
-
-    img_with_gt_bboxes = cv2.resize(img_with_gt_bboxes, (img_width, img_height)) # (the image MUST have the size specified in VideoWriter)
-    img_with_pred_bboxes = cv2.resize(img_with_pred_bboxes, (img_width, img_height)) # (the image MUST have the size specified in VideoWriter)
-
-    combined_img = np.zeros((2*img_height, img_width, 3), dtype=np.uint8)
-    combined_img[0:img_height] = img_with_gt_bboxes
-    combined_img[img_height:] = img_with_pred_bboxes
-
-    out.write(combined_img)
+# ################################################################################
+# # create a video of images with GT on top of pred:
+# ################################################################################
+# out = cv2.VideoWriter("eval_val_seq_%s_img_GT_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, 2*img_height), True)
+#
+# for img_id in sorted_img_ids:
+#     print img_id
+#
+#     img = cv2.imread(img_dir + img_id + ".png", -1)
+#
+#     img_with_gt_bboxes = img
+#     img_with_pred_bboxes = img
+#
+#     if img_id in img_data_dict:
+#         data_dict = img_data_dict[img_id]
+#         gt_bbox_polys = data_dict["gt_bbox_polys"]
+#         pred_bbox_polys = data_dict["pred_bbox_polys"]
+#
+#         img_with_gt_bboxes = draw_3d_polys(img, gt_bbox_polys)
+#         img_with_pred_bboxes = draw_3d_polys(img, pred_bbox_polys)
+#
+#     img_with_gt_bboxes = cv2.resize(img_with_gt_bboxes, (img_width, img_height)) # (the image MUST have the size specified in VideoWriter)
+#     img_with_pred_bboxes = cv2.resize(img_with_pred_bboxes, (img_width, img_height)) # (the image MUST have the size specified in VideoWriter)
+#
+#     combined_img = np.zeros((2*img_height, img_width, 3), dtype=np.uint8)
+#     combined_img[0:img_height] = img_with_gt_bboxes
+#     combined_img[img_height:] = img_with_pred_bboxes
+#
+#     out.write(combined_img)
 
 class ImgCreatorLiDAR:
     def __init__(self):
         self.counter = 0
-        self.trajectory = read_pinhole_camera_trajectory("/home/fregu856/exjobb/code/camera_trajectory.json")
+        self.trajectory = read_pinhole_camera_trajectory("/home/fregu856/3DOD_thesis/visualization/camera_trajectory.json") # NOTE! you'll have to adapt this for your file structure
 
     def move_forward(self, vis):
         # this function is called within the Visualizer::run() loop.
@@ -444,7 +452,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of LiDAR (no bboxes):
 # ################################################################################
-# out_lidar = cv2.VideoWriter("val_%s_lidar.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar = cv2.VideoWriter("eval_val_seq_%s_lidar.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -478,7 +486,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of LiDAR with GT:
 # ################################################################################
-# out_lidar_GT = cv2.VideoWriter("val_%s_lidar_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_GT = cv2.VideoWriter("eval_val_seq_%s_lidar_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -518,7 +526,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of LiDAR with pred:
 # ################################################################################
-# out_lidar_pred = cv2.VideoWriter("val_%s_lidar_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_pred = cv2.VideoWriter("eval_val_seq_%s_lidar_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -558,7 +566,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of LiDAR with GT and pred:
 # ################################################################################
-# out_lidar_GT_pred = cv2.VideoWriter("val_%s_lidar_GT_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_GT_pred = cv2.VideoWriter("eval_val_seq_%s_lidar_GT_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -600,7 +608,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of image and LiDAR (no bboxes):
 # ################################################################################
-# out_lidar_img = cv2.VideoWriter("val_%s_lidar_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_img = cv2.VideoWriter("eval_val_seq_%s_lidar_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -641,7 +649,7 @@ class ImgCreatorLiDAR:
 # ################################################################################
 # # create a video of image and LiDAR with GT:
 # ################################################################################
-# out_lidar_img_GT = cv2.VideoWriter("val_%s_lidar_img_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_img_GT = cv2.VideoWriter("eval_val_seq_%s_lidar_img_GT.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -689,11 +697,11 @@ class ImgCreatorLiDAR:
 #     combined_img[-small_img_height:, ((1920/2)-(small_img_width/2)):((1920/2)+(small_img_width/2))] = small_img_with_gt_bboxes
 #
 #     out_lidar_img_GT.write(combined_img)
-#
+
 # ################################################################################
 # # create a video of image and LiDAR with pred:
 # ################################################################################
-# out_lidar_img_pred = cv2.VideoWriter("imgnet_val_%s_lidar_img_pred_model_2.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+# out_lidar_img_pred = cv2.VideoWriter("eval_val_seq_%s_lidar_img_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 #
 # lidar_img_creator = ImgCreatorLiDAR()
 # for img_id in sorted_img_ids:
@@ -741,59 +749,59 @@ class ImgCreatorLiDAR:
 #     combined_img[-small_img_height:, ((1920/2)-(small_img_width/2)):((1920/2)+(small_img_width/2))] = small_img_with_pred_bboxes
 #
 #     out_lidar_img_pred.write(combined_img)
-#
-# ################################################################################
-# # create a video of image and LiDAR with GT and pred:
-# ################################################################################
-# out_lidar_img_GT_pred = cv2.VideoWriter("imgnet_val_%s_lidar_img_GT_pred_model_2.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
-#
-# lidar_img_creator = ImgCreatorLiDAR()
-# for img_id in sorted_img_ids:
-#     print img_id
-#
-#     img = cv2.imread(img_dir + img_id + ".png", -1)
-#     img_with_bboxes = img
-#     if img_id in img_data_dict:
-#         data_dict = img_data_dict[img_id]
-#         gt_bbox_polys = data_dict["gt_bbox_polys"]
-#         pred_bbox_polys = data_dict["pred_bbox_polys"]
-#         img_with_bboxes = draw_3d_polys(img_with_bboxes, gt_bbox_polys)
-#         img_with_bboxes = draw_3d_polys(img_with_bboxes, pred_bbox_polys)
-#     small_img_with_bboxes = cv2.resize(img_with_bboxes, (small_img_width, small_img_height))
-#
-#     lidar_path = lidar_dir + img_id + ".bin"
-#     point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
-#
-#     # remove points that are located behind the camera:
-#     point_cloud = point_cloud[point_cloud[:, 0] > -2.5, :]
-#
-#     point_cloud_xyz = point_cloud[:, 0:3]
-#     point_cloud_xyz_hom = np.ones((point_cloud.shape[0], 4))
-#     point_cloud_xyz_hom[:, 0:3] = point_cloud[:, 0:3] # (point_cloud_xyz_hom has shape (num_points, 4))
-#
-#     # transform the points into (rectified) camera coordinates:
-#     point_cloud_xyz_camera_hom = np.dot(R0_rect, np.dot(Tr_velo_to_cam, point_cloud_xyz_hom.T)).T # (point_cloud_xyz_hom.T has shape (4, num_points))
-#     # normalize:
-#     point_cloud_xyz_camera = np.zeros((point_cloud_xyz_camera_hom.shape[0], 3))
-#     point_cloud_xyz_camera[:, 0] = point_cloud_xyz_camera_hom[:, 0]/point_cloud_xyz_camera_hom[:, 3]
-#     point_cloud_xyz_camera[:, 1] = point_cloud_xyz_camera_hom[:, 1]/point_cloud_xyz_camera_hom[:, 3]
-#     point_cloud_xyz_camera[:, 2] = point_cloud_xyz_camera_hom[:, 2]/point_cloud_xyz_camera_hom[:, 3]
-#
-#     pcd = PointCloud()
-#     pcd.points = Vector3dVector(point_cloud_xyz_camera)
-#     pcd.paint_uniform_color([0.65, 0.65, 0.65])
-#
-#     gt_bboxes = []
-#     pred_bboxes = []
-#
-#     if img_id in img_data_dict:
-#         data_dict = img_data_dict[img_id]
-#         gt_bboxes = data_dict["gt_bboxes"]
-#         pred_bboxes = data_dict["pred_bboxes"]
-#
-#     img_lidar = lidar_img_creator.create_img(gt_bboxes + pred_bboxes + [pcd])
-#
-#     combined_img = img_lidar
-#     combined_img[-small_img_height:, ((1920/2)-(small_img_width/2)):((1920/2)+(small_img_width/2))] = small_img_with_bboxes
-#
-#     out_lidar_img_GT_pred.write(combined_img)
+
+################################################################################
+# create a video of image and LiDAR with GT and pred:
+################################################################################
+out_lidar_img_GT_pred = cv2.VideoWriter("eval_val_seq_%s_lidar_img_GT_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+
+lidar_img_creator = ImgCreatorLiDAR()
+for img_id in sorted_img_ids:
+    print img_id
+
+    img = cv2.imread(img_dir + img_id + ".png", -1)
+    img_with_bboxes = img
+    if img_id in img_data_dict:
+        data_dict = img_data_dict[img_id]
+        gt_bbox_polys = data_dict["gt_bbox_polys"]
+        pred_bbox_polys = data_dict["pred_bbox_polys"]
+        img_with_bboxes = draw_3d_polys(img_with_bboxes, gt_bbox_polys)
+        img_with_bboxes = draw_3d_polys(img_with_bboxes, pred_bbox_polys)
+    small_img_with_bboxes = cv2.resize(img_with_bboxes, (small_img_width, small_img_height))
+
+    lidar_path = lidar_dir + img_id + ".bin"
+    point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
+
+    # remove points that are located behind the camera:
+    point_cloud = point_cloud[point_cloud[:, 0] > -2.5, :]
+
+    point_cloud_xyz = point_cloud[:, 0:3]
+    point_cloud_xyz_hom = np.ones((point_cloud.shape[0], 4))
+    point_cloud_xyz_hom[:, 0:3] = point_cloud[:, 0:3] # (point_cloud_xyz_hom has shape (num_points, 4))
+
+    # transform the points into (rectified) camera coordinates:
+    point_cloud_xyz_camera_hom = np.dot(R0_rect, np.dot(Tr_velo_to_cam, point_cloud_xyz_hom.T)).T # (point_cloud_xyz_hom.T has shape (4, num_points))
+    # normalize:
+    point_cloud_xyz_camera = np.zeros((point_cloud_xyz_camera_hom.shape[0], 3))
+    point_cloud_xyz_camera[:, 0] = point_cloud_xyz_camera_hom[:, 0]/point_cloud_xyz_camera_hom[:, 3]
+    point_cloud_xyz_camera[:, 1] = point_cloud_xyz_camera_hom[:, 1]/point_cloud_xyz_camera_hom[:, 3]
+    point_cloud_xyz_camera[:, 2] = point_cloud_xyz_camera_hom[:, 2]/point_cloud_xyz_camera_hom[:, 3]
+
+    pcd = PointCloud()
+    pcd.points = Vector3dVector(point_cloud_xyz_camera)
+    pcd.paint_uniform_color([0.65, 0.65, 0.65])
+
+    gt_bboxes = []
+    pred_bboxes = []
+
+    if img_id in img_data_dict:
+        data_dict = img_data_dict[img_id]
+        gt_bboxes = data_dict["gt_bboxes"]
+        pred_bboxes = data_dict["pred_bboxes"]
+
+    img_lidar = lidar_img_creator.create_img(gt_bboxes + pred_bboxes + [pcd])
+
+    combined_img = img_lidar
+    combined_img[-small_img_height:, ((1920/2)-(small_img_width/2)):((1920/2)+(small_img_width/2))] = small_img_with_bboxes
+
+    out_lidar_img_GT_pred.write(combined_img)
