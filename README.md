@@ -557,9 +557,22 @@ TODO!
 ****
 #### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score:
 
-- TODO!
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-,-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
 
-- $ python evaluation/create_txt_files_val_2ddetections.py
+- Place the created *eval_dict_val.pkl* in the correct location (see line 78 in create_txt_files_val.py).
+
+- $ cd 3DOD_thesis
+- $ python evaluation/create_txt_files_val.py
+- $ cd eval_kitti/build
+- $ ./evaluate_object val_Frustum-PointNet_1 val *(where "val_Frustum-PointNet_1" is experiment_name, set on line 55 in create_txt_files_val.py)*
+- $ cd -
+- $ cd eval_kitti
+- $ python parser.py val_Frustum-PointNet_1 val *(where "val_Frustum-PointNet_1 val" should be the same as above)*
+- - This will output performance metrics of the folloing form:
+```
+TODO!
+```
+- When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
 ****
 #### Computing metrics on *KITTI test* (2D confidence score as 3D confidence score):
