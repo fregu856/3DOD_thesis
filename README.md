@@ -492,7 +492,7 @@ val 3d distance loss: 0.11471
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_test_seq.py
 
-- This will create a visualization videos of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
+- This will create visualization videos of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
 
 ****
 ### visualization/visualize_eval_val_extra.py:
