@@ -100,6 +100,9 @@ for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007",
                     pred_centered_r_y = pred_bin_center + pred_residual
                     pred_r_y = wrapToPi(pred_centered_r_y + frustum_angle) # NOTE!
 
+                    pred_r_y = pred_r_y.data.cpu().numpy()
+                    input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+
                     if img_id not in eval_dict:
                         eval_dict[img_id] = []
 

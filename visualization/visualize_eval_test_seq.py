@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 import pickle
 import numpy as np
@@ -7,10 +7,10 @@ import cv2
 import os
 
 import sys
-sys.path.append("/home/fregu856/exjobb/Open3D/build/lib")
+sys.path.append("/home/fregu856/3DOD_thesis/Open3D/build/lib") # NOTE! you'll have to adapt this for your file structure
 from py3d import *
 
-sys.path.append("/home/fregu856/exjobb/code/3dod_thesis/utils") # TODO! change for new file structure (gonna move the code to a separate folder)
+sys.path.append("/home/fregu856/3DOD_thesis/utils") # NOTE! you'll have to adapt this for your file structure
 from kittiloader import LabelLoader2D3D, calibread
 
 def create3Dbbox(center, h, w, l, r_y, type="pred"):
@@ -261,10 +261,10 @@ def draw_3d_polys(img, polys):
 for sequence in ["0001", "0002", "0007", "0011"]:
     print (sequence)
 
-    project_dir = "/home/fregu856/exjobb/"
+    project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
     data_dir = project_dir + "data/kitti/tracking/testing/"
     img_dir = data_dir + "image_02/" + sequence + "/"
-    calib_path = project_dir + "data/kitti/meta/tracking/testing/calib/" + sequence + ".txt"
+    calib_path = project_dir + "data/kitti/meta/tracking/testing/calib/" + sequence + ".txt" # NOTE! kitti/meta
     lidar_dir = data_dir + "velodyne/" + sequence + "/"
 
     calib = calibread(calib_path)
@@ -278,9 +278,18 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     Tr_velo_to_cam = np.eye(4)
     Tr_velo_to_cam[0:3, :] = Tr_velo_to_cam_orig
 
-    # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    with open("/home/fregu856/exjobb/training_logs/frustum_pointnet/model_32_2/32_2_eval_dict_test_seq_%s.pkl" % sequence, "rb") as file:
+    # NOTE! here you can choose what model's output you want to visualize
+    # Frustum-PointNet:
+    with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test_seq/eval_dict_test_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
         eval_dict = pickle.load(file)
+    #################################
+    # # Extended-Frustum-PointNet:
+    # with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test_seq/eval_dict_test_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
+    #     eval_dict = pickle.load(file)
+    # #################################
+    # # Image-Only:
+    # with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_test_seq/eval_dict_test_seq_%s.pkl" % sequence, "rb") as file: # NOTE! you'll have to adapt this for your file structure
+    #     eval_dict = pickle.load(file)
 
     img_data_dict = {}
     for img_id in eval_dict:
@@ -338,7 +347,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of images (no bboxes):
     # ################################################################################
-    # out = cv2.VideoWriter("test_%s_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
+    # out = cv2.VideoWriter("eval_test_seq_%s_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
     #
     # for img_id in sorted_img_ids:
     #     print img_id
@@ -352,8 +361,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of images with pred:
     # ################################################################################
-    # # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    # out = cv2.VideoWriter("test_%s_img_pred_model_19.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
+    # out = cv2.VideoWriter("eval_test_seq_%s_img_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, img_height), True)
     #
     # for img_id in sorted_img_ids:
     #     print img_id
@@ -375,8 +383,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of images with input 2Dbboxes on top of pred 3Dbboxes:
     # ################################################################################
-    # # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    # out = cv2.VideoWriter("test_%s_img_input_pred_model_18.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, 2*img_height), True)
+    # out = cv2.VideoWriter("eval_test_seq_%s_img_input_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (img_width, 2*img_height), True)
     #
     # for img_id in sorted_img_ids:
     #     print img_id
@@ -406,7 +413,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     class ImgCreatorLiDAR:
         def __init__(self):
             self.counter = 0
-            self.trajectory = read_pinhole_camera_trajectory("/home/fregu856/exjobb/code/camera_trajectory.json")
+            self.trajectory = read_pinhole_camera_trajectory("/home/fregu856/3DOD_thesis/visualization/camera_trajectory.json") # NOTE! you'll have to adapt this for your file structure
 
         def move_forward(self, vis):
             # this function is called within the Visualizer::run() loop.
@@ -448,7 +455,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of LiDAR (no bboxes):
     # ################################################################################
-    # out_lidar = cv2.VideoWriter("test_%s_lidar.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+    # out_lidar = cv2.VideoWriter("eval_test_seq_%s_lidar.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
     #
     # lidar_img_creator = ImgCreatorLiDAR()
     # for img_id in sorted_img_ids:
@@ -482,8 +489,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of LiDAR with pred:
     # ################################################################################
-    # # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    # out_lidar_pred = cv2.VideoWriter("test_%s_lidar_pred_model_19.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+    # out_lidar_pred = cv2.VideoWriter("eval_test_seq_%s_lidar_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
     #
     # lidar_img_creator = ImgCreatorLiDAR()
     # for img_id in sorted_img_ids:
@@ -523,7 +529,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of image and LiDAR (no bboxes):
     # ################################################################################
-    # out_lidar_img = cv2.VideoWriter("test_%s_lidar_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+    # out_lidar_img = cv2.VideoWriter("eval_test_seq_%s_lidar_img.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
     #
     # lidar_img_creator = ImgCreatorLiDAR()
     # for img_id in sorted_img_ids:
@@ -564,8 +570,7 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     # ################################################################################
     # # create a video of image and LiDAR with pred:
     # ################################################################################
-    # # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    # out_lidar_img_pred = cv2.VideoWriter("test_%s_lidar_img_pred_model_19.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+    # out_lidar_img_pred = cv2.VideoWriter("eval_test_seq_%s_lidar_img_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
     #
     # lidar_img_creator = ImgCreatorLiDAR()
     # for img_id in sorted_img_ids:
@@ -613,12 +618,11 @@ for sequence in ["0001", "0002", "0007", "0011"]:
     #     combined_img[-small_img_height:, ((1920/2)-(small_img_width/2)):((1920/2)+(small_img_width/2))] = small_img_with_pred_bboxes
     #
     #     out_lidar_img_pred.write(combined_img)
-    #
+
     ################################################################################
     # create a video of image and LiDAR with input 2Dbboxes and pred 3Dbboxes:
     ################################################################################
-    # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-    out_lidar_img_pred = cv2.VideoWriter("32_2_test_%s_lidar_img_input_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
+    out_lidar_img_pred = cv2.VideoWriter("eval_test_seq_%s_lidar_img_input_pred.avi" % sequence, cv2.VideoWriter_fourcc(*'H264'), 12, (1920, 1080), True)
 
     lidar_img_creator = ImgCreatorLiDAR()
     for img_id in sorted_img_ids:
