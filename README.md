@@ -469,3 +469,15 @@ val 3d distance loss: 0.11471
 - $ python visualization/visualize_eval_val_seq.py
 
 - This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing both the ground truth and predicted 3Dbboxes in both the point clouds and images. [Youtube video](https://youtu.be/ctEOAJ8o1QM) (yellow/red bboxes: predicted, pink/blue: ground truth).
+
+****
+#### visualization/visualize_eval_test_seq.py:
+
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-sequences-from-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-sequences-from-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-sequences-from-kitti-test) model on sequences from *KITTI test*.
+
+- Place the created *eval_dict_test_seq_{sequence number}.pkl* files in the correct location (see line 282 in visualize_eval_test_seq.py).
+
+- $ cd 3DOD_thesis
+- $ python visualization/visualize_eval_test_seq.py
+
+- This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
