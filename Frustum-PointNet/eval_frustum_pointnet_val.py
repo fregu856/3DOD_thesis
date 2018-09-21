@@ -162,21 +162,6 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
                 bbox_dict["gt_r_y"] = gt_r_y
                 bbox_dict["input_2Dbbox"] = input_2Dbbox
 
-                # print (pred_center_TNet)
-                # print (pred_center_BboxNet)
-                # print (gt_center)
-                # print (centroid)
-                # print (pred_h)
-                # print (pred_w)
-                # print (pred_l)
-                # print (pred_r_y)
-                # print (gt_h)
-                # print (gt_w)
-                # print (gt_l)
-                # print (gt_r_y)
-                # print (input_2Dbbox)
-                # print ("###############")
-
                 eval_dict[img_id].append(bbox_dict)
 
         ########################################################################
