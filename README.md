@@ -537,6 +537,10 @@ val 3d distance loss: 0.11471
 
 - Using a slightly modified version of eval_kitti (LINK TODO!) TODO!
 
+- $ python evaluation/create_txt_files_val.py
+- $ python evaluation/create_txt_files_val_2ddetections.py
+- $ python evaluation/create_txt_files_test.py
+
 ****
 #### TODO!TODO!.py:
 
