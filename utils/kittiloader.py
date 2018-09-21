@@ -1,4 +1,4 @@
-# mostly done
+# camera-ready
 
 import numpy as np
 import cv2
