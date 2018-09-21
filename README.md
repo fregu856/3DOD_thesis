@@ -513,3 +513,16 @@ val 3d distance loss: 0.11471
 - This will:
 - - (1) Open a window in Open3D, visualizing the first point cloud.
 - - (2) By closing this window, step 1 is repeated for the next point cloud.
+
+****
+****
+
+****
+### Evaluation
+
+- TODO!
+
+****
+#### TODO!TODO!.py:
+
+- TODO!
