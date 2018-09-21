@@ -143,7 +143,7 @@ for step, (frustum_point_clouds, labels_InstanceSeg, labels_TNet, labels_BboxNet
                     eval_dict[img_id] = []
 
                 bbox_dict = {}
-                # # # # uncomment this if you want to visualize the frustum or the segmentation:
+                # # # # uncomment this if you want to visualize the frustum or the segmentation (e.g., if you want to run visualization/visualize_eval_val_extra.py):
                 # bbox_dict["frustum_point_cloud"] = frustum_point_cloud
                 # bbox_dict["pred_seg_point_cloud"] = pred_seg_point_cloud
                 # bbox_dict["gt_seg_point_cloud"] = gt_seg_point_cloud
