@@ -95,14 +95,14 @@ for step, (frustum_point_clouds, img_ids, input_2Dbboxes, frustum_Rs, frustum_an
                 pred_centered_r_y = pred_bin_center + pred_residual
                 pred_r_y = wrapToPi(pred_centered_r_y + frustum_angle) # NOTE!
 
+                pred_r_y = pred_r_y.data.cpu().numpy()
+                input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+                score_2d = score_2d.cpu().numpy()
+
                 if img_id not in eval_dict:
                     eval_dict[img_id] = []
 
                 bbox_dict = {}
-                # # # # uncomment this if you want to visualize the frustum or the segmentation:
-                # bbox_dict["frustum_point_cloud"] = frustum_point_cloud
-                # bbox_dict["pred_seg_point_cloud"] = pred_seg_point_cloud
-                # # # #
                 bbox_dict["pred_center_TNet"] = pred_center_TNet
                 bbox_dict["pred_center_BboxNet"] = pred_center_BboxNet
                 bbox_dict["centroid"] = centroid
