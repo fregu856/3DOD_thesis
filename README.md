@@ -186,7 +186,7 @@ validation precision: 0.887209
 validation recall: 0.949744
 validation f1: 0.917124
 ```
-- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+- - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
 #### Run pretrained Frustum-PointNet model on a sequence from the KITTI training set:
@@ -221,7 +221,7 @@ validation f1: 0.879015
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_test.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
@@ -243,7 +243,7 @@ validation f1: 0.879015
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/eval_frustum_pointnet_val_2ddetections.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
 
@@ -275,7 +275,7 @@ validation precision: 0.893525
 validation recall: 0.954732
 validation f1: 0.921978
 ```
-- - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+- - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
 #### Run pretrained Extended-Frustum-PointNet model on a sequence from the KITTI training set:
@@ -310,7 +310,7 @@ validation f1: 0.8914
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_test.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
@@ -332,7 +332,7 @@ validation f1: 0.8914
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/eval_frustum_pointnet_img_val_2ddetections.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
 
@@ -358,7 +358,7 @@ val 3d r_y loss: 0.0983654
 val 3d distance loss: 0.102937
 
 ```
-- - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
+- - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
 #### Run pretrained Image-Only model on a sequence from the KITTI training set:
@@ -387,7 +387,7 @@ val 3d distance loss: 0.11471
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/eval_imgnet_test.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_test/eval_dict_test.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
@@ -409,7 +409,7 @@ val 3d distance loss: 0.11471
 - $ cd --
 - $ python 3DOD_thesis/Image-Only/eval_imgnet_val_2ddetections.py
 
-- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization.
+- - Running this script will create the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_2ddetections/eval_dict_val_2ddetections.pkl*, containing predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 - - When running the model, we here take detections from a 2D object detector (implemented by the original Frustum-PointNet authors and made  available on [github](https://github.com/charlesq34/frustum-pointnets)) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 96.48% | Moderate - 90.31% | Hard - 87.63%.
 
@@ -536,30 +536,34 @@ val 3d distance loss: 0.11471
 - On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
 
 ****
-#### Computing metrics on *KITTI val* - constant 3D confidence score (TODO!):
+#### Computing metrics on *KITTI val* - constant 3D confidence score:
 
-- TODO! TODO! TODO! (constant conf score, just a point in the curves)
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
 
+- Place the created *eval_dict_val.pkl* in the correct location (see line 78 in create_txt_files_val.py).
+
+- $ cd 3DOD_thesis
 - $ python evaluation/create_txt_files_val.py
 - $ cd eval_kitti/build
 - $ ./evaluate_object val_Frustum-PointNet_1 val (where "val_Frustum-PointNet_1" is experiment_name, set on line 55 in create_txt_files_val.py)
 - $ cd -
 - $ cd eval_kitti
 - $ python parser.py val_Frustum-PointNet_1 val (where "val_Frustum-PointNet_1 val" should be the same as above)
-- - Will result in an output of the following form:
+- - This will output performance metrics of the folloing form:
 ```
 TODO!
 ```
+- When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti_build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
 ****
-#### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score (TODO!):
+#### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score:
 
 - TODO!
 
 - $ python evaluation/create_txt_files_val_2ddetections.py
 
 ****
-#### Computing metrics on *KITTI test* (2D confidence score as 3D confidence score) (TODO!):
+#### Computing metrics on *KITTI test* (2D confidence score as 3D confidence score):
 
 - TODO!
 
