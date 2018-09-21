@@ -1,4 +1,4 @@
-# TODO!-
+# camera-ready
 
 import pickle
 import numpy as np
