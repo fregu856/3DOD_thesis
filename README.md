@@ -543,6 +543,7 @@ val 3d distance loss: 0.11471
 - $ python evaluation/create_txt_files_val.py
 - $ cd eval_kitti/build
 - $ ./evaluate_object val_Frustum-PointNet_1 val (where "val_Frustum-PointNet_1" is experiment_name, set on line 55 in create_txt_files_val.py)
+- $ parser something TODO! TODO! TODO!
 
 ****
 #### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score (TODO!):
