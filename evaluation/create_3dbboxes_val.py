@@ -1,4 +1,4 @@
-# mostly done
+# TODO!
 
 import pickle
 import numpy as np
@@ -52,10 +52,10 @@ def ProjectTo2Dbbox(center, h, w, l, r_y, P2):
     return projected_2Dbbox
 
 # NOTE NOTE! NOTE! NOTE! NOTE! NOTE! change this for every new experiment
-experiment_name = "model_38_2_kitti_test"
+experiment_name = "model_35_val"
 
 project_dir = "/home/fregu856/exjobb/"
-data_dir = project_dir + "data/kitti/object/testing/"
+data_dir = project_dir + "data/kitti/object/training/"
 calib_dir = data_dir + "calib/"
 
 eval_kitti_dir = project_dir + "/code/eval_kitti/"
@@ -69,17 +69,18 @@ else:
     os.makedirs(experiment_results_dir)
     os.makedirs(results_data_dir)
 
-img_ids = []
+training_img_ids = []
 img_names = os.listdir(calib_dir)
 for img_name in img_names:
     img_id = img_name.split(".txt")[0]
-    img_ids.append(img_id)
+    training_img_ids.append(img_id)
 
 # NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-with open("/home/fregu856/exjobb/training_logs/frustum_pointnet/model_38_2/eval_dict_kitti_test_38_2.pkl", "rb") as file:
+with open("/home/fregu856/exjobb/training_logs/frustum_pointnet/model_35/eval_dict.pkl", "rb") as file:
+#with open("/home/fregu856/exjobb/training_logs/da/naive/eval_dict.pkl", "rb") as file:
     eval_dict = pickle.load(file)
 
-for img_id in img_ids:
+for img_id in training_img_ids:
     print img_id
 
     img_label_file_path = results_data_dir + img_id + ".txt"
@@ -106,7 +107,7 @@ for img_id in img_ids:
                 right = projected_2Dbbox[2]
                 bottom = projected_2Dbbox[3]
 
-                score = bbox_dict["score_2d"]
+                score = 1.0
 
                 # (type, truncated, occluded, alpha, left, top, right, bottom, h, w, l, x, y, z, ry, score)
                 img_label_file.write("Car -1 -1 -10 %d %d %d %d %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n" % (left, top, right, bottom, pred_h, pred_w, pred_l, pred_x, pred_y, pred_z, pred_r_y, score))
