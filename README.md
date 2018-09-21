@@ -604,4 +604,4 @@ car hard detection_3d 0.703275272727
 - $ cd 3DOD_thesis
 - $ python evaluation/create_txt_files_test.py
 
-- TODO! what does this do? what can we use it for?
+- This will create all the .txt files (placed in 3DOD_thesis/eval_kitti/build/results/test_Frustum-PointNet_1/data) needed to submit to the KITTI 3D object detection leaderboard, see [submission instructions](http://www.cvlibs.net/datasets/kitti/user_login.php).
