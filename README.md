@@ -580,7 +580,17 @@ car hard detection_3d 0.679985181818
 - $ python parser.py val_2ddetections_Frustum-PointNet_1 val *(where "val_2ddetections_Frustum-PointNet_1 val" should be the same as above)*
 - - This will output performance metrics of the following form:
 ```
-TODO!
+car easy detection 0.890627727273
+car moderate detection 0.844203727273
+car hard detection 0.756144545455
+----------------
+car easy detection_ground 0.927797272727
+car moderate detection_ground 0.861135272727
+car hard detection_ground 0.774095636364
+----------------
+car easy detection_3d 0.848968818182
+car moderate detection_3d 0.736132272727
+car hard detection_3d 0.703275272727
 ```
 - In this case, we use the confidence scores of the 2D detections also as the 3D detection confidence scores. This results in more interesting precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_2ddetections_Frustum-PointNet_1) and generally somewhat improved performance metrics.
 
