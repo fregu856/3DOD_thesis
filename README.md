@@ -1,6 +1,6 @@
 # 3DOD_thesis
 
-- 3D Object Detection for Autonomous Driving in PyTorch, trained on the KITTI dataset.
+3D Object Detection for Autonomous Driving in PyTorch, trained on the KITTI dataset.
 
 - [Youtube video](https://youtu.be/KdrHLXpYYlg) of results:
 
