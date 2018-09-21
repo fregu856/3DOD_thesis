@@ -1,4 +1,4 @@
-# camera-ready if everything workse
+# camera-ready
 
 import pickle
 import numpy as np
@@ -52,7 +52,7 @@ def ProjectTo2Dbbox(center, h, w, l, r_y, P2):
 
     return projected_2Dbbox
 
-experiment_name = "Frustum-PointNet_1" # NOTE change this for every new experiment
+experiment_name = "val_2ddetections_Frustum-PointNet_1" # NOTE change this for every new experiment
 
 project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
 data_dir = project_dir + "data/kitti/object/training/"
@@ -77,15 +77,15 @@ for img_name in img_names:
 
 # NOTE! here you can choose what model's output you want to compute metrics for
 # Frustum-PointNet:
-with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
     eval_dict = pickle.load(file)
 #################################
 # # Extended-Frustum-PointNet:
-# with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_2ddetections/eval_dict_val_2ddetections.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
 #     eval_dict = pickle.load(file)
 # ##################################
 # # Image-Only:
-# with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_val_2ddetections/eval_dict_val_2ddetections.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
 #     eval_dict = pickle.load(file)
 
 for img_id in training_img_ids:
