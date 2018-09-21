@@ -6,7 +6,10 @@
 
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
-- TODO!
+- This work constitutes roughly 50% of the MSc thesis:
+- - Automotive 3D Object Detection Without Target Domain Annotations [[pdf]](http://urn.kb.se/resolve?urn=urn:nbn:se:liu:diva-148585)[[slides]](http://www.fregu856.com/static/msc_thesis_slides.pdf)
+- - *Fredrik K. Gustafsson and Erik Linder-Norén*
+- - `Master of Science Thesis in Electrical Engineering, Linköping University, 2018`
 
 ## Index
 - [Using a VM on Paperspace](#paperspace)
