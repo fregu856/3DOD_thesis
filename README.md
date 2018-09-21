@@ -536,16 +536,28 @@ val 3d distance loss: 0.11471
 - On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
 
 ****
-#### TODO!TODO!.py:
-
-- - $ python evaluation/create_txt_files_val.py
-- - $ cd eval_kitti/build
-- - $ ./evaluate_object val_Frustum-PointNet_1 val (where "val_Frustum-PointNet_1" is experiment_name, set on line 55 in create_txt_files_val.py)
-
-
-- $ python evaluation/create_txt_files_val_2ddetections.py
-- $ python evaluation/create_txt_files_test.py
+#### Computing metrics on *KITTI val* - constant 3D confidence score (TODO!):
 
 - TODO!
+
+- $ python evaluation/create_txt_files_val.py
+- $ cd eval_kitti/build
+- $ ./evaluate_object val_Frustum-PointNet_1 val (where "val_Frustum-PointNet_1" is experiment_name, set on line 55 in create_txt_files_val.py)
+
+****
+#### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score (TODO!):
+
+- TODO!
+
+- $ python evaluation/create_txt_files_val_2ddetections.py
+
+****
+#### Computing metrics on *KITTI test* (2D confidence score as 3D confidence score) (TODO!):
+
+- TODO!
+
+- $ python evaluation/create_txt_files_test.py
+
+***
 
 - (the difference between val and val_detections, that the curves are really just one value in the case of val blablabla TODO!)
