@@ -5,6 +5,17 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 - Youtube video of results (https://youtu.be/KdrHLXpYYlg):
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
+## Index
+- [Using a VM on Paperspace](#paperspace)
+- [Used datasets](#used-datasets)
+- [Pretrained models](#pretrained-models)
+- [Training a model on KITTI](#train-frustum-pointnet-model-on-kitti-train)
+- [Running a pretrained Frustum-PointNet model on KITTI](#run-pretrained-frustum-pointnet-model-on-kitti-val)
+- [Running a pretrained Extended-Frustum-PointNet model on KITTI](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val)
+- [Running a pretrained Image-Only model on KITTI](#run-pretrained-image-only-model-on-kitti-val)
+- [Visualization](#visualization)
+- [Evaluation](#evaluation)
+
 ****
 ****
 
@@ -480,7 +491,7 @@ val 3d distance loss: 0.11471
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_test_seq.py
 
-- This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
+- This will create a visualization videos of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
 
 ****
 #### visualization/visualize_eval_val_extra.py:
@@ -513,3 +524,16 @@ val 3d distance loss: 0.11471
 - This will:
 - - (1) Open a window in Open3D, visualizing the first point cloud.
 - - (2) By closing this window, step 1 is repeated for the next point cloud.
+
+****
+****
+
+****
+### Evaluation
+
+- TODO!
+
+****
+#### TODO!TODO!.py:
+
+- TODO!
