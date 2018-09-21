@@ -1,13 +1,23 @@
-# mostly done
+# camera-ready
 
 import os
 import numpy as np
 
 import sys
-sys.path.append("/home/fregu856/exjobb/Open3D/build/lib")
+sys.path.append("/home/fregu856/3DOD_thesis/Open3D/build/lib") # NOTE! you'll have to adapt this for your file structure
 from py3d import *
 
-project_dir = "/home/fregu856/exjobb/"
+def draw_geometries_dark_background(geometries):
+    vis = Visualizer()
+    vis.create_window()
+    opt = vis.get_render_option()
+    opt.background_color = np.asarray([0, 0, 0])
+    for geometry in geometries:
+        vis.add_geometry(geometry)
+    vis.run()
+    vis.destroy_window()
+
+project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
 data_dir = project_dir + "data/kitti/object/training/"
 img_dir = data_dir + "image_2/"
 lidar_dir = data_dir + "velodyne/"
@@ -30,10 +40,11 @@ for lidar_path in lidar_paths:
 
     print lidar_path
     print point_cloud.shape
-    print point_cloud
 
     point_cloud_xyz = point_cloud[:, 0:3]
 
     pcd = PointCloud()
     pcd.points = Vector3dVector(point_cloud_xyz)
-    draw_geometries([pcd])
+    pcd.paint_uniform_color([0.65, 0.65, 0.65])
+
+    draw_geometries_dark_background([pcd])
