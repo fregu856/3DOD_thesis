@@ -1,7 +1,7 @@
-# mostly done
+# camera-ready
 
 from datasets_imgnet import DatasetImgNetEvalTestSeq, BoxRegressor # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
-from datasets import wrapToPi
+from datasets_imgnet import wrapToPi
 from imgnet import ImgNet
 
 import torch
@@ -18,10 +18,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import cv2
 
-batch_size = 32
+batch_size = 8
 
-network = ImgNet("eval", project_dir="/staging/frexgus/imgnet")
-network.load_state_dict(torch.load("/staging/frexgus/imgnet/training_logs/model_10_2/checkpoints/model_10_2_epoch_400.pth"))
+network = ImgNet("Image-Only_eval_test_seq", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_10_2_epoch_400.pth"))
 network = network.cuda()
 
 network.eval() # (set in evaluation mode, this affects BatchNorm and dropout)
@@ -29,13 +29,13 @@ network.eval() # (set in evaluation mode, this affects BatchNorm and dropout)
 for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012", "0013", "0014", "0015", "0016", "0017", "0018", "0027"]:
     print (sequence)
 
-    test_dataset = DatasetImgNetEvalTestSeq(kitti_data_path="/datasets/kitti",
-                                            kitti_meta_path="/staging/frexgus/kitti/meta",
+    test_dataset = DatasetImgNetEvalTestSeq(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                                            kitti_meta_path="/root/3DOD_thesis/data/kitti/meta",
                                             sequence=sequence)
 
     test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                               batch_size=batch_size, shuffle=False,
-                                              num_workers=16)
+                                              num_workers=4)
 
     eval_dict = {}
     for step, (bbox_2d_imgs, img_ids, mean_car_size, ws, hs, u_centers, v_centers, input_2Dbboxes, camera_matrices, mean_distance) in enumerate(test_loader):
@@ -47,7 +47,7 @@ for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007",
             outputs = network(bbox_2d_imgs) # (shape: (batch_size, 2*8 + 3 = 19))
             outputs_keypoints = outputs[:, 0:16] # (shape: (batch_size, 2*8))
             outputs_size = outputs[:, 16:19] # (shape: (batch_size, 3)
-            outputs_distance = outputs[:, 19] # (shape: (batch_size, 1)
+            outputs_distance = outputs[:, 19] # (shape: (batch_size, )
 
             ############################################################################
             # save data for visualization:
@@ -80,6 +80,8 @@ for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007",
                 pred_h, pred_w, pred_l, pred_x, pred_y, pred_z, pred_r_y  = pred_params
                 pred_r_y = wrapToPi(pred_r_y)
 
+                input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+
                 if img_id not in eval_dict:
                     eval_dict[img_id] = []
 
@@ -93,6 +95,5 @@ for sequence in ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007",
 
                 eval_dict[img_id].append(bbox_dict)
 
-    # NOTE! NOTE! NOTE!
-    with open("%s/10_2_eval_dict_test_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
+    with open("%s/eval_dict_test_seq_%s.pkl" % (network.model_dir, sequence), "wb") as file:
         pickle.dump(eval_dict, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2)
