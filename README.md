@@ -468,7 +468,9 @@ val 3d distance loss: 0.11471
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_val_seq.py
 
-- TODO! (this can do a lot of different things, see the code, the default is that it creates a video with lidar, image and pred 3dbboxes).
+- This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video with ......TODO!
+
+- - TODO! link to video
 
 
 
