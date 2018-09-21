@@ -34,8 +34,7 @@ STATIC EVALUATION PARAMETERS
 //const int32_t N_TESTIMAGES = 7518;
 int32_t N_TESTIMAGES = 7480;
 
-const int32_t append_zeros = 6; // KITTI NOTE! NOTE! NOTE! NOTE!
-//const int32_t append_zeros = 10; // SYN NOTE! NOTE! NOTE! NOTE!
+const int32_t append_zeros = 6;
 
 // easy, moderate and hard evaluation level
 enum DIFFICULTY{EASY=0, MODERATE=1, HARD=2};
