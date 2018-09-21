@@ -1,7 +1,5 @@
 # 3DOD_thesis
 
-NOTE! The uploaded code is NOT camera-ready yet, a final version will be released before the end of September.
-
 - Youtube video of results (https://youtu.be/KdrHLXpYYlg):
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
@@ -20,7 +18,7 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 ****
 
 ******
-### Paperspace:
+## Paperspace:
 
 To train models and to run pretrained models, you can use an Ubuntu 16.04 P4000 VM with 250 GB SSD on Paperspace. Below I have listed what I needed to do in order to get started, and some things I found useful.
 
@@ -108,7 +106,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ****
 
 ***
-### Used datasets:
+## Used datasets:
 - *KITTI train*:
 - - 3712 examples (roughly 50%) from the KITTI training set, see thesis for more info.
 
@@ -122,7 +120,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 - - The KITTI testing set, 7518 examples.
 
 ***
-### Pretrained models:
+## Pretrained models:
 - pretrained_models/model_37_2_epoch_400.pth:
 - - Frustum-PointNet trained for 400 epochs on *KITTI train random*.
 
@@ -139,21 +137,21 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ****
 
 ***
-#### Train Frustum-PointNet model on *KITTI train*:
+### Train Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Frustum-PointNet/train_frustum_pointnet.py
 
 ***
-#### Train Extended-Frustum-PointNet model on *KITTI train*:
+### Train Extended-Frustum-PointNet model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
 - $ python 3DOD_thesis/Extended-Frustum-PointNet/train_frustum_pointnet_img.py
 
 ***
-#### Train Image-Only model on *KITTI train*:
+### Train Image-Only model on *KITTI train*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -163,7 +161,7 @@ NV_GPU="$GPUIDS" nvidia-docker run -it --rm \
 ****
 
 ***
-#### Run pretrained Frustum-PointNet model on *KITTI val*:
+### Run pretrained Frustum-PointNet model on *KITTI val*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -189,7 +187,7 @@ validation f1: 0.917124
 - - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
-#### Run pretrained Frustum-PointNet model on a sequence from the KITTI training set:
+### Run pretrained Frustum-PointNet model on a sequence from the KITTI training set:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -215,7 +213,7 @@ validation f1: 0.879015
 - - It also creates the file *3DOD_thesis/training_logs/model_Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
 
 ***
-#### Run pretrained Frustum-PointNet model on *KITTI test*:
+### Run pretrained Frustum-PointNet model on *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -226,7 +224,7 @@ validation f1: 0.879015
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Frustum-PointNet model on sequences from *KITTI test*:
+### Run pretrained Frustum-PointNet model on sequences from *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -237,7 +235,7 @@ validation f1: 0.879015
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Frustum-PointNet model on *KITTI val*, with 2D detections as input:
+### Run pretrained Frustum-PointNet model on *KITTI val*, with 2D detections as input:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -252,7 +250,7 @@ validation f1: 0.879015
 ****
 
 ***
-#### Run pretrained Extended-Frustum-PointNet model on *KITTI val*:
+### Run pretrained Extended-Frustum-PointNet model on *KITTI val*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -278,7 +276,7 @@ validation f1: 0.921978
 - - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
-#### Run pretrained Extended-Frustum-PointNet model on a sequence from the KITTI training set:
+### Run pretrained Extended-Frustum-PointNet model on a sequence from the KITTI training set:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -304,7 +302,7 @@ validation f1: 0.8914
 - - It also creates the file *3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
 
 ***
-#### Run pretrained Extended-Frustum-PointNet model on *KITTI test*:
+### Run pretrained Extended-Frustum-PointNet model on *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -315,7 +313,7 @@ validation f1: 0.8914
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Extended-Frustum-PointNet model on sequences from *KITTI test*:
+### Run pretrained Extended-Frustum-PointNet model on sequences from *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -326,7 +324,7 @@ validation f1: 0.8914
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Extended-Frustum-PointNet model on *KITTI val*, with 2D detections as input:
+### Run pretrained Extended-Frustum-PointNet model on *KITTI val*, with 2D detections as input:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -340,7 +338,7 @@ validation f1: 0.8914
 ****
 
 ***
-#### Run pretrained Image-Only model on *KITTI val*:
+### Run pretrained Image-Only model on *KITTI val*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -360,7 +358,7 @@ val 3d distance loss: 0.102937
 - - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val/eval_dict_val.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization and computing evaluation metrics.
 
 ***
-#### Run pretrained Image-Only model on a sequence from the KITTI training set:
+### Run pretrained Image-Only model on a sequence from the KITTI training set:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -380,7 +378,7 @@ val 3d distance loss: 0.11471
 - - It also creates the file *3DOD_thesis/training_logs/model_Image-Only_eval_val_seq/eval_dict_val_seq_{sequence number}.pkl*, containing ground truth and predicted 3Dbbox parameters which can be used for visualization.
 
 ***
-#### Run pretrained Image-Only model on *KITTI test*:
+### Run pretrained Image-Only model on *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -391,7 +389,7 @@ val 3d distance loss: 0.11471
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Image-Only model on sequences from *KITTI test*:
+### Run pretrained Image-Only model on sequences from *KITTI test*:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -402,7 +400,7 @@ val 3d distance loss: 0.11471
 - - When running the model on *KITTI test*, we take detections from a 2D object detector (implemented in a previous thesis project at Zenuty) as input 2Dbboxes. The 2D detector has the following performance for cars on *KITTI val*: Easy - 87.8% | Moderate - 77.4% | Hard - 68.1%.
 
 ***
-#### Run pretrained Image-Only model on *KITTI val*, with 2D detections as input:
+### Run pretrained Image-Only model on *KITTI val*, with 2D detections as input:
 - SSH into the paperspace server.
 - $ sudo sh start_docker_image.sh
 - $ cd --
@@ -416,7 +414,7 @@ val 3d distance loss: 0.11471
 ****
 
 ****
-### Visualization
+## Visualization
 
 - For visualization of point clouds and 3Dbboxes in different ways, I have used [Open3D](http://www.open3d.org/) on my Ubuntu 16.04 laptop.
 
@@ -438,7 +436,7 @@ val 3d distance loss: 0.11471
 - - Scroll: zoom in and out.
 
 ****
-#### visualization/visualize_eval_val.py:
+### visualization/visualize_eval_val.py:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*.
 
@@ -454,7 +452,7 @@ val 3d distance loss: 0.11471
 - - (4) By closing this window, step 1 is repeated for the next example.
 
 ****
-#### visualization/visualize_eval_test.py:
+### visualization/visualize_eval_test.py:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-kitti-test) model on *KITTI test*.
 
@@ -469,7 +467,7 @@ val 3d distance loss: 0.11471
 - - (3) By closing the Open3D window, step 1 is repeated for the next example.
 
 ****
-#### visualization/visualize_eval_val_seq.py:
+### visualization/visualize_eval_val_seq.py:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set) or [Image-Only](#run-pretrained-image-only-model-on-a-sequence-from-the-kitti-training-set) model on a sequence from the KITTI training set.
 
@@ -481,7 +479,7 @@ val 3d distance loss: 0.11471
 - This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing both the ground truth and predicted 3Dbboxes in both the point clouds and images. [Youtube video](https://youtu.be/ctEOAJ8o1QM) (yellow/red bboxes: predicted, pink/blue: ground truth).
 
 ****
-#### visualization/visualize_eval_test_seq.py:
+### visualization/visualize_eval_test_seq.py:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-sequences-from-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-sequences-from-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-sequences-from-kitti-test) model on sequences from *KITTI test*.
 
@@ -493,7 +491,7 @@ val 3d distance loss: 0.11471
 - This will create a visualization videos of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
 
 ****
-#### visualization/visualize_eval_val_extra.py:
+### visualization/visualize_eval_val_extra.py:
 
 - Very similar to visualize_eval_val.py, but also visualizes the results of the intermediate steps in the Frustum-PointNet/Extended-Frustum-PointNet architecture. 
 
@@ -513,7 +511,7 @@ val 3d distance loss: 0.11471
 - When all the vehicles in the current example have been visualized, it continues with the next example.
 
 ****
-#### visualization/visualize_lidar.py:
+### visualization/visualize_lidar.py:
 
 - Simple script for visualizing all the point clouds you have located at 3DOD_thesis/data/kitti/object/training/velodyne.
 
@@ -528,14 +526,14 @@ val 3d distance loss: 0.11471
 ****
 
 ****
-### Evaluation
+## Evaluation
 
 - For computing evaluation metrics, I have used a slightly modified version of [eval_kitti](https://github.com/cguindel/eval_kitti) on my Ubuntu 16.04 laptop.
 
 - On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
 
 ****
-#### Computing metrics on *KITTI val* - constant 3D confidence scores:
+### Computing metrics on *KITTI val* - constant 3D confidence scores:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
 
@@ -565,7 +563,7 @@ car hard detection_3d 0.679985181818
 - When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
 ****
-#### Computing metrics on *KITTI val* - 2D confidence scores as 3D confidence scores:
+### Computing metrics on *KITTI val* - 2D confidence scores as 3D confidence scores:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val-with-2d-detections-as-input) model on *KITTI val*, taking 2D detections as input.
 
@@ -595,7 +593,7 @@ car hard detection_3d 0.703275272727
 - In this case, we use the confidence scores of the 2D detections also as the 3D detection confidence scores. This results in more interesting precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_2ddetections_Frustum-PointNet_1) and generally somewhat improved performance metrics.
 
 ****
-#### Computing metrics on *KITTI test* (2D confidence scores as 3D confidence scores):
+### Computing metrics on *KITTI test* (2D confidence scores as 3D confidence scores):
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-kitti-test) model on *KITTI test*.
 
