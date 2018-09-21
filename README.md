@@ -12,7 +12,7 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 - [Training a model on KITTI](#train-frustum-pointnet-model-on-kitti-train)
 - [Running a pretrained Frustum-PointNet model on KITTI](#run-pretrained-frustum-pointnet-model-on-kitti-val)
 - [Running a pretrained Extended-Frustum-PointNet model on KITTI](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val)
-- [Running a pretrained Image-Only model on KITTI](#run-image-only-model-on-kitti-val)
+- [Running a pretrained Image-Only model on KITTI](#run-pretrained-image-only-model-on-kitti-val)
 - [Visualization](#visualization)
 - [Evaluation](#evaluation)
 
