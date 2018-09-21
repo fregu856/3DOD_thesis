@@ -473,7 +473,7 @@ val 3d distance loss: 0.11471
 ****
 #### visualization/visualize_eval_test_seq.py:
 
-- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-a-sequence-from-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-a-sequence-from-the-kitti-training-set) or [Image-Only](#run-pretrained-image-only-model-on-a-sequence-from-the-kitti-training-set) model on a sequence from *KITTI test*.
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-sequences-from-kitti-test), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-sequences-from-kitti-test) or [Image-Only](#run-pretrained-image-only-model-on-sequences-from-kitti-test) model on sequences from *KITTI test*.
 
 - Place the created *eval_dict_val_seq_{sequence number}.pkl* in the correct location (see line 256 in visualize_eval_val_seq.py).
 
