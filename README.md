@@ -503,7 +503,7 @@ val 3d distance loss: 0.11471
 - When all the vehicles in the current example have been visualized, it continues with the next example.
 
 ****
-#### visualization/visualize_eval_val_extra.py:
+#### visualization/visualize_lidar.py:
 
 - Simple script for visualizing all the point clouds you have located at 3DOD_thesis/data/kitti/object/training/velodyne.
 
