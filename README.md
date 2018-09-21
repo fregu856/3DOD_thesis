@@ -481,3 +481,18 @@ val 3d distance loss: 0.11471
 - $ python visualization/visualize_eval_test_seq.py
 
 - This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing the predicted 3Dbboxes in both the point clouds and images, and visualizing the input 2Dbboxes in the images. See [Youtube video](https://youtu.be/KdrHLXpYYlg) from the top of the page.
+
+****
+#### visualization/visualize_eval_val_extra.py:
+
+- Very similar to visualize_eval_val.py, but also visualizes the results of the intermediate steps in the Frustum-PointNet/Extended-Frustum-PointNet architecture. 
+
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val) or [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) model on *KITTI val* and save intermediate results for visualization (uncomment the lines at line 146 in eval_frustum_pointnet_val.py, or line 148 in eval_frustum_pointnet_img_val.py).
+
+- Place the created *eval_dict_val.pkl* in the correct location (see line 278 in visualize_eval_val_extra.py).
+
+- $ cd 3DOD_thesis
+- $ python visualization/visualize_eval_val_extra.py
+
+- This will: 
+- - TODO!
