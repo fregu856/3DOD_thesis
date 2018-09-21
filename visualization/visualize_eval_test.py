@@ -1,11 +1,12 @@
-# mostly done
+# camera-ready
 
 import pickle
 import numpy as np
 import math
 import cv2
 
-sys.path.append("/home/fregu856/exjobb/code/3dod_thesis/utils") # TODO! change for new file structure (gonna move the code to a separate folder)
+import sys
+sys.path.append("/home/fregu856/3DOD_thesis/utils") # NOTE! you'll have to adapt this for your file structure
 from kittiloader import LabelLoader2D3D, calibread
 
 def create3Dbbox(center, h, w, l, r_y, type="pred"):
@@ -263,11 +264,10 @@ def draw_geometries_dark_background(geometries):
     vis.run()
     vis.destroy_window()
 
-import sys
-sys.path.append("/home/fregu856/exjobb/Open3D/build/lib")
+sys.path.append("/home/fregu856/3DOD_thesis/Open3D/build/lib") # NOTE! you'll have to adapt this for your file structure
 from py3d import *
 
-project_dir = "/home/fregu856/exjobb/"
+project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
 data_dir = project_dir + "data/kitti/object/testing/"
 img_dir = data_dir + "image_2/"
 calib_dir = data_dir + "calib/"
@@ -276,89 +276,99 @@ lidar_dir = data_dir + "velodyne/"
 img_height = 375
 img_width = 1242
 
-# NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-with open("/home/fregu856/exjobb/training_logs/frustum_pointnet/model_37_2/eval_dict_kitti_test_37_2.pkl", "rb") as file:
+# NOTE! here you can choose what model's output you want to visualize
+# Frustum-PointNet:
+with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
     eval_dict = pickle.load(file)
+#################################
+# # Extended-Frustum-PointNet:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
+# ##################################
+# # Image-Only:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
 
 for img_id in eval_dict:
-    #if img_id in ["000000", "000001", "000002", "000003", "000004", "000005", "000006", "000007", "000008", "000009", "000010", "000011", "000012", "000013", "000014", "000015", "000016", "000017", "000018", "000019", "000020", "000021", "000022", "000023", "000024", "000025", "000026", "000027", "000028", "000029", "000030"]:
-    print img_id
+    # NOTE! remove this if statement in case you have access to the complete KITTI dataset
+    if img_id in ["000000", "000001", "000002", "000003", "000004", "000005", "000006", "000007", "000008", "000009", "000010"]:
+        print img_id
 
-    bbox_dicts = eval_dict[img_id]
+        bbox_dicts = eval_dict[img_id]
 
-    img = cv2.imread(img_dir + img_id + ".png", -1)
+        img = cv2.imread(img_dir + img_id + ".png", -1)
 
-    lidar_path = lidar_dir + img_id + ".bin"
-    point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
+        lidar_path = lidar_dir + img_id + ".bin"
+        point_cloud = np.fromfile(lidar_path, dtype=np.float32).reshape(-1, 4)
 
-    # remove points that are located behind the camera:
-    point_cloud = point_cloud[point_cloud[:, 0] > -2.5, :]
+        # remove points that are located behind the camera:
+        point_cloud = point_cloud[point_cloud[:, 0] > -2.5, :]
 
-    calib = calibread(calib_dir + img_id + ".txt")
-    P2 = calib["P2"]
-    Tr_velo_to_cam_orig = calib["Tr_velo_to_cam"]
-    R0_rect_orig = calib["R0_rect"]
-    #
-    R0_rect = np.eye(4)
-    R0_rect[0:3, 0:3] = R0_rect_orig
-    #
-    Tr_velo_to_cam = np.eye(4)
-    Tr_velo_to_cam[0:3, :] = Tr_velo_to_cam_orig
+        calib = calibread(calib_dir + img_id + ".txt")
+        P2 = calib["P2"]
+        Tr_velo_to_cam_orig = calib["Tr_velo_to_cam"]
+        R0_rect_orig = calib["R0_rect"]
+        #
+        R0_rect = np.eye(4)
+        R0_rect[0:3, 0:3] = R0_rect_orig
+        #
+        Tr_velo_to_cam = np.eye(4)
+        Tr_velo_to_cam[0:3, :] = Tr_velo_to_cam_orig
 
-    point_cloud_xyz = point_cloud[:, 0:3]
-    point_cloud_xyz_hom = np.ones((point_cloud.shape[0], 4))
-    point_cloud_xyz_hom[:, 0:3] = point_cloud[:, 0:3] # (point_cloud_xyz_hom has shape (num_points, 4))
+        point_cloud_xyz = point_cloud[:, 0:3]
+        point_cloud_xyz_hom = np.ones((point_cloud.shape[0], 4))
+        point_cloud_xyz_hom[:, 0:3] = point_cloud[:, 0:3] # (point_cloud_xyz_hom has shape (num_points, 4))
 
-    # transform the points into (rectified) camera coordinates:
-    point_cloud_xyz_camera_hom = np.dot(R0_rect, np.dot(Tr_velo_to_cam, point_cloud_xyz_hom.T)).T # (point_cloud_xyz_hom.T has shape (4, num_points))
-    # normalize:
-    point_cloud_xyz_camera = np.zeros((point_cloud_xyz_camera_hom.shape[0], 3))
-    point_cloud_xyz_camera[:, 0] = point_cloud_xyz_camera_hom[:, 0]/point_cloud_xyz_camera_hom[:, 3]
-    point_cloud_xyz_camera[:, 1] = point_cloud_xyz_camera_hom[:, 1]/point_cloud_xyz_camera_hom[:, 3]
-    point_cloud_xyz_camera[:, 2] = point_cloud_xyz_camera_hom[:, 2]/point_cloud_xyz_camera_hom[:, 3]
+        # transform the points into (rectified) camera coordinates:
+        point_cloud_xyz_camera_hom = np.dot(R0_rect, np.dot(Tr_velo_to_cam, point_cloud_xyz_hom.T)).T # (point_cloud_xyz_hom.T has shape (4, num_points))
+        # normalize:
+        point_cloud_xyz_camera = np.zeros((point_cloud_xyz_camera_hom.shape[0], 3))
+        point_cloud_xyz_camera[:, 0] = point_cloud_xyz_camera_hom[:, 0]/point_cloud_xyz_camera_hom[:, 3]
+        point_cloud_xyz_camera[:, 1] = point_cloud_xyz_camera_hom[:, 1]/point_cloud_xyz_camera_hom[:, 3]
+        point_cloud_xyz_camera[:, 2] = point_cloud_xyz_camera_hom[:, 2]/point_cloud_xyz_camera_hom[:, 3]
 
-    pcd = PointCloud()
-    pcd.points = Vector3dVector(point_cloud_xyz_camera)
-    pcd.paint_uniform_color([0.65, 0.65, 0.65])
+        pcd = PointCloud()
+        pcd.points = Vector3dVector(point_cloud_xyz_camera)
+        pcd.paint_uniform_color([0.65, 0.65, 0.65])
 
-    pred_bboxes = []
-    pred_bbox_polys = []
-    input_2Dbbox_polys = []
-    pred_seg_pcds = []
-    for bbox_dict in bbox_dicts:
-        # frustum_point_cloud = bbox_dict["frustum_point_cloud"]
-        # pred_seg_point_cloud = bbox_dict["pred_seg_point_cloud"]
-        input_2Dbbox = bbox_dict["input_2Dbbox"]
-        pred_center_BboxNet = bbox_dict["pred_center_BboxNet"]
-        pred_h = bbox_dict["pred_h"]
-        pred_w = bbox_dict["pred_w"]
-        pred_l = bbox_dict["pred_l"]
-        pred_r_y = bbox_dict["pred_r_y"]
+        pred_bboxes = []
+        pred_bbox_polys = []
+        input_2Dbbox_polys = []
+        pred_seg_pcds = []
+        for bbox_dict in bbox_dicts:
+            # frustum_point_cloud = bbox_dict["frustum_point_cloud"]
+            # pred_seg_point_cloud = bbox_dict["pred_seg_point_cloud"]
+            input_2Dbbox = bbox_dict["input_2Dbbox"]
+            pred_center_BboxNet = bbox_dict["pred_center_BboxNet"]
+            pred_h = bbox_dict["pred_h"]
+            pred_w = bbox_dict["pred_w"]
+            pred_l = bbox_dict["pred_l"]
+            pred_r_y = bbox_dict["pred_r_y"]
 
-        # pred_seg_pcd = PointCloud()
-        # pred_seg_pcd.points = Vector3dVector(pred_seg_point_cloud[:, 0:3])
-        # color_value = np.random.uniform(low=0.0, high=1.0)
-        # pred_seg_pcd.paint_uniform_color([color_value, 1-color_value, np.random.uniform(low=0.0, high=1.0)])
-        # pred_seg_pcds.append(pred_seg_pcd)
+            # pred_seg_pcd = PointCloud()
+            # pred_seg_pcd.points = Vector3dVector(pred_seg_point_cloud[:, 0:3])
+            # color_value = np.random.uniform(low=0.0, high=1.0)
+            # pred_seg_pcd.paint_uniform_color([color_value, 1-color_value, np.random.uniform(low=0.0, high=1.0)])
+            # pred_seg_pcds.append(pred_seg_pcd)
 
-        input_2Dbbox_poly = create2Dbbox_poly(input_2Dbbox)
-        input_2Dbbox_polys.append(input_2Dbbox_poly)
+            input_2Dbbox_poly = create2Dbbox_poly(input_2Dbbox)
+            input_2Dbbox_polys.append(input_2Dbbox_poly)
 
-        pred_bbox_poly = create3Dbbox_poly(pred_center_BboxNet, pred_h, pred_w, pred_l, pred_r_y, P2, type="pred")
-        pred_bbox_polys.append(pred_bbox_poly)
+            pred_bbox_poly = create3Dbbox_poly(pred_center_BboxNet, pred_h, pred_w, pred_l, pred_r_y, P2, type="pred")
+            pred_bbox_polys.append(pred_bbox_poly)
 
-        pred_bbox = create3Dbbox(pred_center_BboxNet, pred_h, pred_w, pred_l, pred_r_y, type="pred")
-        pred_bboxes += pred_bbox
+            pred_bbox = create3Dbbox(pred_center_BboxNet, pred_h, pred_w, pred_l, pred_r_y, type="pred")
+            pred_bboxes += pred_bbox
 
-    img_with_input_2Dbboxes = draw_2d_polys(img, input_2Dbbox_polys)
-    img_with_input_2Dbboxes = cv2.resize(img_with_input_2Dbboxes, (img_width, img_height))
+        img_with_input_2Dbboxes = draw_2d_polys(img, input_2Dbbox_polys)
+        img_with_input_2Dbboxes = cv2.resize(img_with_input_2Dbboxes, (img_width, img_height))
 
-    img_with_pred_bboxes = draw_3d_polys(img, pred_bbox_polys)
-    img_with_pred_bboxes = cv2.resize(img_with_pred_bboxes, (img_width, img_height))
+        img_with_pred_bboxes = draw_3d_polys(img, pred_bbox_polys)
+        img_with_pred_bboxes = cv2.resize(img_with_pred_bboxes, (img_width, img_height))
 
-    combined_img = np.zeros((2*img_height, img_width, 3), dtype=np.uint8)
-    combined_img[0:img_height] = img_with_input_2Dbboxes
-    combined_img[img_height:] = img_with_pred_bboxes
-    cv2.imwrite("visualization_frustum_pointnet_test.png", combined_img)
+        combined_img = np.zeros((2*img_height, img_width, 3), dtype=np.uint8)
+        combined_img[0:img_height] = img_with_input_2Dbboxes
+        combined_img[img_height:] = img_with_pred_bboxes
+        cv2.imwrite("visualization_eval_test.png", combined_img)
 
-    draw_geometries_dark_background(pred_seg_pcds + pred_bboxes + [pcd])
+        draw_geometries_dark_background(pred_seg_pcds + pred_bboxes + [pcd])
