@@ -533,6 +533,10 @@ val 3d distance loss: 0.11471
 
 - TODO!
 
+- On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
+
+- Using a slightly modified version of eval_kitti (LINK TODO!) TODO!
+
 ****
 #### TODO!TODO!.py:
 
