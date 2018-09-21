@@ -1,7 +1,7 @@
-# mostly done
+# camera-ready
 
 from datasets_imgnet import DatasetKittiTest, BoxRegressor # (this needs to be imported before torch, because cv2 needs to be imported before torch for some reason)
-from datasets import wrapToPi
+from datasets_imgnet import wrapToPi
 from imgnet import ImgNet
 
 import torch
@@ -18,23 +18,28 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import cv2
 
-batch_size = 32 # NOTE! NOTE
+batch_size = 8
 
-network = ImgNet("eval", project_dir="/staging/frexgus/imgnet")
-network.load_state_dict(torch.load("/staging/frexgus/imgnet/training_logs/model_10_2/checkpoints/model_10_2_epoch_400.pth"))
+network = ImgNet("Image-Only_eval_test", project_dir="/root/3DOD_thesis")
+network.load_state_dict(torch.load("/root/3DOD_thesis/pretrained_models/model_10_2_epoch_400.pth"))
 network = network.cuda()
 
 network.eval() # (set in evaluation mode, this affects BatchNorm and dropout)
 
-val_dataset = DatasetKittiTest(kitti_data_path="/datasets/kitti",
-                               kitti_meta_path="/staging/frexgus/kitti/meta")
+val_dataset = DatasetKittiTest(kitti_data_path="/root/3DOD_thesis/data/kitti",
+                               kitti_meta_path="/root/3DOD_thesis/data/kitti/meta")
+
+num_val_batches = int(len(val_dataset)/batch_size)
 
 val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                          batch_size=batch_size, shuffle=False,
-                                         num_workers=16)
+                                         num_workers=4)
 
 eval_dict = {}
 for step, (bbox_2d_imgs, img_ids, mean_car_size, ws, hs, u_centers, v_centers, input_2Dbboxes, camera_matrices, mean_distance, scores_2d) in enumerate(val_loader):
+    if step % 100 == 0:
+        print ("step: %d/%d" % (step+1, num_val_batches))
+
     with torch.no_grad(): # (corresponds to setting volatile=True in all variables, this is done during inference to reduce memory consumption)
         bbox_2d_imgs = Variable(bbox_2d_imgs) # (shape: (batch_size, 3, H, W) = (batch_size, 3, 224, 224))
 
@@ -43,7 +48,7 @@ for step, (bbox_2d_imgs, img_ids, mean_car_size, ws, hs, u_centers, v_centers, i
         outputs = network(bbox_2d_imgs) # (shape: (batch_size, 2*8 + 3 = 19))
         outputs_keypoints = outputs[:, 0:16] # (shape: (batch_size, 2*8))
         outputs_size = outputs[:, 16:19] # (shape: (batch_size, 3)
-        outputs_distance = outputs[:, 19] # (shape: (batch_size, 1)
+        outputs_distance = outputs[:, 19] # (shape: (batch_size, )
 
         ############################################################################
         # save data for visualization:
@@ -77,6 +82,9 @@ for step, (bbox_2d_imgs, img_ids, mean_car_size, ws, hs, u_centers, v_centers, i
             pred_h, pred_w, pred_l, pred_x, pred_y, pred_z, pred_r_y  = pred_params
             pred_r_y = wrapToPi(pred_r_y)
 
+            score_2d = score_2d.data.cpu().numpy()
+            input_2Dbbox = input_2Dbbox.data.cpu().numpy()
+
             if img_id not in eval_dict:
                 eval_dict[img_id] = []
 
@@ -91,5 +99,5 @@ for step, (bbox_2d_imgs, img_ids, mean_car_size, ws, hs, u_centers, v_centers, i
 
             eval_dict[img_id].append(bbox_dict)
 
-with open("%s/eval_dict_kitti_test_imgnet_10_2.pkl" % network.model_dir, "wb") as file:
+with open("%s/eval_dict_test.pkl" % network.model_dir, "wb") as file:
     pickle.dump(eval_dict, file, protocol=2) # (protocol=2 is needed to be able to open this file with python2)
