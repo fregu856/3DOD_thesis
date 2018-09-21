@@ -1,4 +1,4 @@
-# camera-ready (if everything works)
+# camera-ready
 
 import sys
 sys.path.append("/root/3DOD_thesis/utils")
