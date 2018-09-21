@@ -468,5 +468,5 @@ val 3d distance loss: 0.11471
 - $ cd 3DOD_thesis
 - $ python visualization/visualize_eval_val_seq.py
 
-- This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing both the ground truth and predicted 3Dbboxes in both the point clouds and images. [Youtube video](TODO!TODO!) (yellow/red bboxes: predicted, pink/blue: ground truth).
-[![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)]
+- This will create a visualization video of some kind, the type of visualization is specified in the code (see the out-commented sections), but as default this will create a video visualizing both the ground truth and predicted 3Dbboxes in both the point clouds and images. [Youtube video](https://youtu.be/ctEOAJ8o1QM) (yellow/red bboxes: predicted, pink/blue: ground truth).
+[![demo video with results](https://img.youtube.com/vi/ctEOAJ8o1QM/0.jpg)]
