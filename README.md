@@ -547,3 +547,5 @@ val 3d distance loss: 0.11471
 - $ python evaluation/create_txt_files_test.py
 
 - TODO!
+
+- (the difference between val and val_detections, that the curves are really just one value in the case of val blablabla TODO!)
