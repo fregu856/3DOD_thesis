@@ -535,7 +535,7 @@ val 3d distance loss: 0.11471
 - On my laptop, the 3DOD_thesis folder is located at */home/fregu856/3DOD_thesis*, which is reflected in the code.
 
 ****
-#### Computing metrics on *KITTI val* - constant 3D confidence score:
+#### Computing metrics on *KITTI val* - constant 3D confidence scores:
 
 - Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
 
@@ -555,9 +555,9 @@ TODO!
 - When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
 ****
-#### Computing metrics on *KITTI val* - 2D confidence score as 3D confidence score:
+#### Computing metrics on *KITTI val* - 2D confidence scores as 3D confidence scores:
 
-- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-,-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
 
 - Place the created *eval_dict_val.pkl* in the correct location (see line 78 in create_txt_files_val.py).
 
@@ -575,7 +575,7 @@ TODO!
 - When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
 ****
-#### Computing metrics on *KITTI test* (2D confidence score as 3D confidence score):
+#### Computing metrics on *KITTI test* (2D confidence scores as 3D confidence scores):
 
 - TODO!
 
