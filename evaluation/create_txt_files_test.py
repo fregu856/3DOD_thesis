@@ -1,11 +1,12 @@
-# mostly donee-
+# camera-ready
 
 import pickle
 import numpy as np
 import os
 import math
 
-sys.path.append("/home/fregu856/exjobb/code/3dod_thesis/utils") # TODO! change for new file structure (gonna move the code to a separate folder)
+import sys
+sys.path.append("/home/fregu856/3DOD_thesis/utils") # NOTE! you'll have to adapt this for your file structure
 from kittiloader import calibread
 
 def ProjectTo2Dbbox(center, h, w, l, r_y, P2):
@@ -51,14 +52,13 @@ def ProjectTo2Dbbox(center, h, w, l, r_y, P2):
 
     return projected_2Dbbox
 
-# NOTE NOTE! NOTE! NOTE! NOTE! NOTE! change this for every new experiment
-experiment_name = "model_38_2_kitti_test"
+experiment_name = "test_Frustum-PointNet_1" # NOTE change this for every new experiment
 
-project_dir = "/home/fregu856/exjobb/"
+project_dir = "/home/fregu856/3DOD_thesis/" # NOTE! you'll have to adapt this for your file structure
 data_dir = project_dir + "data/kitti/object/testing/"
 calib_dir = data_dir + "calib/"
 
-eval_kitti_dir = project_dir + "/code/eval_kitti/"
+eval_kitti_dir = project_dir + "/eval_kitti/"
 results_dir = eval_kitti_dir + "build/results/"
 
 experiment_results_dir = results_dir + experiment_name + "/"
@@ -75,9 +75,18 @@ for img_name in img_names:
     img_id = img_name.split(".txt")[0]
     img_ids.append(img_id)
 
-# NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE! NOTE!
-with open("/home/fregu856/exjobb/training_logs/frustum_pointnet/model_38_2/eval_dict_kitti_test_38_2.pkl", "rb") as file:
+# NOTE! here you can choose what model's output you want to compute metrics for
+# Frustum-PointNet:
+with open("/home/fregu856/3DOD_thesis/training_logs/model_Frustum-PointNet_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
     eval_dict = pickle.load(file)
+#################################
+# # Extended-Frustum-PointNet:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Extended-Frustum-PointNet_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
+# ##################################
+# # Image-Only:
+# with open("/home/fregu856/3DOD_thesis/training_logs/model_Image-Only_eval_test/eval_dict_test.pkl", "rb") as file: # NOTE! you'll have to adapt this for your file structure
+#     eval_dict = pickle.load(file)
 
 for img_id in img_ids:
     print img_id
