@@ -501,3 +501,15 @@ val 3d distance loss: 0.11471
 - - (4) By closing this window, a new window is opened visualizing the point cloud, the ground truth 3Dbbox and the predicted 3Dbbox corresponding to the first vehicle.
 - - (5) By closing this window, step 1 is repeated for the next vehicle in the example.
 - When all the vehicles in the current example have been visualized, it continues with the next example.
+
+****
+#### visualization/visualize_eval_val_extra.py:
+
+- Simple script for visualizing all the point clouds you have located at 3DOD_thesis/data/kitti/object/training/velodyne.
+
+- $ cd 3DOD_thesis
+- $ python visualization/visualize_lidar.py
+
+- This will:
+- - (1) Open a window in Open3D, visualizing the first point cloud.
+- - (2) By closing this window, step 1 is repeated for the next point cloud.
