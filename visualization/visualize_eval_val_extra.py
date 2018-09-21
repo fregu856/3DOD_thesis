@@ -5,7 +5,8 @@ import numpy as np
 import math
 import cv2
 
-sys.path.append("/home/fregu856/exjobb/code/3dod_thesis/utils") # TODO! change for new file structure (gonna move the code to a separate folder)
+import sys
+sys.path.append("/home/fregu856/3DOD_thesis/utils") # NOTE! you'll have to adapt this for your file structure
 from kittiloader import LabelLoader2D3D, calibread
 
 def create3Dbbox(center, h, w, l, r_y, type="pred"):
