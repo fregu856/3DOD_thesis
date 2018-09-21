@@ -6,8 +6,7 @@ NOTE! The uploaded code is NOT camera-ready yet, a final version will be release
 [![demo video with results](https://img.youtube.com/vi/KdrHLXpYYlg/0.jpg)](https://www.youtube.com/watch?v=KdrHLXpYYlg)
 
 ## Index
-- TODO!
-- TODO!
+- [Using a VM on Paperspace](#paperspace)
 
 ****
 ****
