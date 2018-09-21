@@ -557,7 +557,7 @@ TODO!
 ****
 #### Computing metrics on *KITTI val* - 2D confidence scores as 3D confidence scores:
 
-- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val) model on *KITTI val*, taking ground truth 2Dbboxes as input.
+- Run a pretrained [Frustum-PointNet](#run-pretrained-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input), [Extended-Frustum-PointNet](#run-pretrained-extended-frustum-pointnet-model-on-kitti-val-with-2d-detections-as-input) or [Image-Only](#run-pretrained-image-only-model-on-kitti-val-with-2d-detections-as-input) model on *KITTI val*, taking 2D detections as input.
 
 - Place the created *eval_dict_val.pkl* in the correct location (see line 78 in create_txt_files_val.py).
 
