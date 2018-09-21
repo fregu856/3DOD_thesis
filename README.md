@@ -548,9 +548,19 @@ val 3d distance loss: 0.11471
 - $ cd -
 - $ cd eval_kitti
 - $ python parser.py val_Frustum-PointNet_1 val *(where "val_Frustum-PointNet_1 val" should be the same as above)*
-- - This will output performance metrics of the folloing form:
+- - This will output performance metrics of the following form:
 ```
-TODO!
+car easy detection 0.842861
+car moderate detection 0.811715454545
+car hard detection 0.834955454545
+----------------
+car easy detection_ground 0.884758
+car moderate detection_ground 0.815156363636
+car hard detection_ground 0.837436363636
+----------------
+car easy detection_3d 0.707517272727
+car moderate detection_3d 0.716832727273
+car hard detection_3d 0.679985181818
 ```
 - When we take the ground truth 2Dbboxes as input, we use a constant 3D detection confidence score of 1.0. This results in constant precision-recall curves (found in 3DOD_thesis/eval_kitti/build/results/val_Frustum-PointNet_1) and somewhat degraded performance metrics.
 
@@ -568,7 +578,7 @@ TODO!
 - $ cd -
 - $ cd eval_kitti
 - $ python parser.py val_2ddetections_Frustum-PointNet_1 val *(where "val_2ddetections_Frustum-PointNet_1 val" should be the same as above)*
-- - This will output performance metrics of the folloing form:
+- - This will output performance metrics of the following form:
 ```
 TODO!
 ```
